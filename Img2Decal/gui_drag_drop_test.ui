@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>722</width>
-    <height>591</height>
+    <width>567</width>
+    <height>744</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -42,16 +42,34 @@ QPushButton:pressed {
     background-color: #63677a; /* Background color when pressed */
 }
 
-
 QLineEdit {
     background-color: #243649; /* Background color on hover */
+}
+
+QTextEdit{
+   color: rgb(85, 255, 127);
+
+}
+
+QGroupBox{
+ margin-top: 11px;
+ padding: 0px;
+ border: 3px dashed #63677a; /* 2px width, dashed style, and black color */
+
+
+}
+
+QListWidget{
+	padding: 0px;
+	margin: 0px;
+
 }
 </string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QGridLayout" name="gridLayout">
-    <item row="2" column="0">
-     <widget class="QPushButton" name="my_pushButton">
+    <item row="5" column="0">
+     <widget class="QPushButton" name="my_clear_console_Button">
       <property name="sizePolicy">
        <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
         <horstretch>0</horstretch>
@@ -67,7 +85,32 @@ QLineEdit {
       <property name="maximumSize">
        <size>
         <width>16777215</width>
-        <height>45</height>
+        <height>55</height>
+       </size>
+      </property>
+      <property name="text">
+       <string>Clear Console Log</string>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="0">
+     <widget class="QPushButton" name="my_remove_selected_Button">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="minimumSize">
+       <size>
+        <width>0</width>
+        <height>55</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>16777215</width>
+        <height>55</height>
        </size>
       </property>
       <property name="text">
@@ -92,18 +135,24 @@ QLineEdit {
       <property name="acceptDrops">
        <bool>false</bool>
       </property>
+      <property name="styleSheet">
+       <string notr="true"/>
+      </property>
       <property name="title">
        <string/>
       </property>
       <layout class="QGridLayout" name="gridLayout_2">
+       <property name="topMargin">
+        <number>11</number>
+       </property>
        <property name="bottomMargin">
         <number>0</number>
        </property>
       </layout>
      </widget>
     </item>
-    <item row="3" column="0">
-     <widget class="QTextEdit" name="textEdit">
+    <item row="4" column="0">
+     <widget class="QTextEdit" name="user_consoleLog_Widget">
       <property name="sizePolicy">
        <sizepolicy hsizetype="Expanding" vsizetype="MinimumExpanding">
         <horstretch>0</horstretch>
@@ -126,7 +175,32 @@ QLineEdit {
        <set>Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse</set>
       </property>
       <property name="placeholderText">
-       <string>Text Output Log...</string>
+       <string>User Console Log...</string>
+      </property>
+     </widget>
+    </item>
+    <item row="3" column="0">
+     <widget class="QPushButton" name="pushButton">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="minimumSize">
+       <size>
+        <width>0</width>
+        <height>55</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>16777215</width>
+        <height>55</height>
+       </size>
+      </property>
+      <property name="text">
+       <string>Batch Process Files</string>
       </property>
      </widget>
     </item>
