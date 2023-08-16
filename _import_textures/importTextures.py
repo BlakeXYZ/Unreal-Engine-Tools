@@ -5,7 +5,7 @@ from PySide2 import QtUiTools, QtWidgets, QtGui
 
 import unreal_stylesheet
 
-sys.path.append(rf'C:\Users\blake\Documents\Unreal Projects\blakeXYZ_UE_Utils')         # allow for import of custom modules "import viewport_utils.py 
+sys.path.append(rf'C:\Users\blake\Documents\Unreal Projects\blakeXYZ_uepy_utils')         # allow for import of custom modules "import viewport_utils.py 
 
 """
 Be sure to add your default python modules directory path to Unreal:
@@ -47,18 +47,24 @@ class my_importTextures_GUI(QtWidgets.QWidget):
                 #find interactive elements of UI
                 self.btn_openFiles = self.mainWidget.findChild(QtWidgets.QPushButton, 'btn_openFiles')
                 self.gridLayout_filePaths = self.mainWidget.findChild(QtWidgets.QGridLayout, 'gridLayout_filePath')
-                self.btn_close = self.mainWidget.findChild(QtWidgets.QPushButton, 'btn_closeWindow')
-                self.textEdit_consoleLog = self.mainWidget.findChild(QtWidgets.QTextEdit, 'textEdit_consoleLog')
-                self.btn_clearConsole =  self.mainWidget.findChild(QtWidgets.QPushButton, 'btn_clearConsole')
 
+                self.btn_clearConsole =  self.mainWidget.findChild(QtWidgets.QPushButton, 'btn_clearConsole')
+                self.btn_importFiles =  self.mainWidget.findChild(QtWidgets.QPushButton, 'btn_importFiles')
+                self.btn_close = self.mainWidget.findChild(QtWidgets.QPushButton, 'btn_closeWindow')
+
+                self.textEdit_consoleLog = self.mainWidget.findChild(QtWidgets.QTextEdit, 'textEdit_consoleLog')
 
                 #assign clicked handler to buttons
-                self.btn_openFiles.clicked.connect(self.appendFiles)
-                self.btn_close.clicked.connect(self.closewindow)
+                self.btn_openFiles.clicked.connect(self.append_files)
+                self.btn_importFiles.clicked.connect(self.import_files)
+
+                self.btn_close.clicked.connect(self.close_window)
                 self.btn_clearConsole.clicked.connect(self.clear_consoleLog_text) 
 
                 # List to ensure no DUPLICATES get added
                 self.stored_fileNames = []  # Initialize the list here
+                # update button state
+                self.UTILITY_btn_importFiles_state()
 
                 # Setup for Dynamic Grid / Flow Layou
                 self.column = 0
@@ -69,10 +75,12 @@ class my_importTextures_GUI(QtWidgets.QWidget):
 
 
         """
-        Your code goes here.
+
+        GUI Interaction Functions
+
         """
 
-        def appendFiles(self):
+        def append_files(self):
                 """
                 Work with QFileDialog
                 """
@@ -80,8 +88,9 @@ class my_importTextures_GUI(QtWidgets.QWidget):
                 # self.textEdit_consoleLog.setHtml(f'{current_consoleLog} hello')
 
 
-                dir = rf'C:\Users\blake\Pictures\Wallpaper'
-                fileNames = QtWidgets.QFileDialog.getOpenFileNames(self, ("Open Image"), dir, ("Image Files (*.png *.jpg *.psd)")) # returns tuple: ( [ list of file paths], your filter: 'Image Files (*.png *.jpg *.bmp)')
+                dir = unreal.SystemLibrary.get_project_content_directory()
+                print(dir)
+                fileNames = QtWidgets.QFileDialog.getOpenFileNames(self, ("Select Files to Import"), dir, ("Image Files (*.png *.jpg *.psd)")) # returns tuple: ( [ list of file paths], your filter: 'Image Files (*.png *.jpg *.bmp)')
 
                 for fileName in fileNames[0]:
                         if fileName in self.stored_fileNames: # LOG & CONTINUE if duplicates in self.stored_fileNames list
@@ -92,6 +101,9 @@ class my_importTextures_GUI(QtWidgets.QWidget):
 
                 # Only allow if no Duplicates are in stored list
                         self.stored_fileNames.append(fileName)
+
+                # update button state
+                        self.UTILITY_btn_importFiles_state()
 
                         #load the created UI widget
                         subWidget_filePath = QtUiTools.QUiLoader().load(self.subWidget_filePath_ui_dir)
@@ -104,8 +116,8 @@ class my_importTextures_GUI(QtWidgets.QWidget):
                         img_filePath = subWidget_filePath.findChild(QtWidgets.QLabel, 'img_filePath')
                         btn_filePath_remove = subWidget_filePath.findChild(QtWidgets.QPushButton, 'btn_filePath_remove')
 
-                        # connect btn to remove filePath widget
-                        btn_filePath_remove.clicked.connect(partial(self.remove_subWidget, subWidget_filePath)) # Feed in Method then Argument
+                        # connect btn to remove subWidget_filePath
+                        btn_filePath_remove.clicked.connect(partial(self.remove_subWidget, subWidget_filePath)) # Using library: Partial to Feed in Method then Argument
 
                 # Add Filename to Subwidget's Object: LineEdit
                         lineEdit_filePath.setText(fileName)
@@ -125,6 +137,8 @@ class my_importTextures_GUI(QtWidgets.QWidget):
 
                         self.UTILITY_reorganize_gridLayout()
 
+
+
                 self.UTILITY_move_consoleLog_cursor_to_end()
         
 
@@ -143,6 +157,19 @@ class my_importTextures_GUI(QtWidgets.QWidget):
 
                 # Reorganize the layout after removing an item
                 self.UTILITY_reorganize_gridLayout()
+                
+                # update button state
+                self.UTILITY_btn_importFiles_state()
+
+
+        def clear_consoleLog_text(self):
+                self.textEdit_consoleLog.setHtml(f'Console Log...')
+
+                # Set the desired color using CSS style
+                color = "#715101" 
+                colored_text = f'<span style="color: {color};">Console Log...</span>'
+                
+                self.textEdit_consoleLog.setHtml(colored_text)
 
 
         def UTILITY_reorganize_gridLayout(self):
@@ -161,17 +188,6 @@ class my_importTextures_GUI(QtWidgets.QWidget):
 
                 self.gridLayout_filePaths.update()
 
-
-        def clear_consoleLog_text(self):
-                self.textEdit_consoleLog.setHtml(f'Console Log...')
-
-                # Set the desired color using CSS style
-                color = "#715101" 
-                colored_text = f'<span style="color: {color};">Console Log...</span>'
-                
-                self.textEdit_consoleLog.setHtml(colored_text)
-
-
      # Ensure the latest text is visible at the bottom
         def UTILITY_move_consoleLog_cursor_to_end(self):
                 cursor = self.textEdit_consoleLog.textCursor()
@@ -179,6 +195,14 @@ class my_importTextures_GUI(QtWidgets.QWidget):
                 self.textEdit_consoleLog.setTextCursor(cursor)
                 self.textEdit_consoleLog.ensureCursorVisible()
 
+        def UTILITY_btn_importFiles_state(self):
+                if len(self.stored_fileNames) == 0:
+                        self.btn_importFiles.setEnabled(False)
+                else:
+                        self.btn_importFiles.setEnabled(True)
+
+                ## how to see properties of a widget: QtWidgets.QPushButton.setEnabled()
+                 
 
         def resizeEvent(self, event):
                 """
@@ -186,12 +210,41 @@ class my_importTextures_GUI(QtWidgets.QWidget):
                 """
                 self.mainWidget.resize(self.width(), self.height())
         
-        def closewindow(self):
+
+        def close_window(self):
                 """
                 Close the window.
                 """
                 self.destroy()
                 
+
+        """
+
+        Connect GUI to UE Functions
+
+        """
+
+        def import_files(self):
+
+                import importlib                        # Debug
+                import asset_utils
+                importlib.reload(asset_utils)           # Debug
+
+                destination_path = unreal.EditorUtilityLibrary.get_current_content_browser_path()
+                file_names = self.stored_fileNames
+
+                asset_utils.UTILITY_import_files(file_names, destination_path)
+
+
+                current_consoleLog =  self.textEdit_consoleLog.toHtml()
+                self.textEdit_consoleLog.setHtml(f'{current_consoleLog}Successfully Imported to Path: {destination_path}')
+
+
+
+
+
+
+
 def openWindow():
         """
         Create tool window.
