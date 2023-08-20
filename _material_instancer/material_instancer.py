@@ -22,7 +22,6 @@ pip install [MODULENAME]
 
 """
 
-
 class my_importTextures_GUI(QtWidgets.QWidget):
         """
         Create a default tool window.
@@ -91,9 +90,10 @@ class my_importTextures_GUI(QtWidgets.QWidget):
                 current_consoleLog =  self.textEdit_consoleLog.toHtml()
                 # self.textEdit_consoleLog.setHtml(f'{current_consoleLog} hello')
 
-
-                dir = unreal.SystemLibrary.get_project_content_directory()
-                fileNames = QtWidgets.QFileDialog.getOpenFileNames(self, ("Select Files to Import"), dir, ("Image Files (*.png *.jpg *.psd)")) # returns tuple: ( [ list of file paths], your filter: 'Image Files (*.png *.jpg *.bmp)')
+                # QFileDialog file type filter
+                accepted_QFileDialog_fileTypes = ['*.bmp', '*.float', '*.jpeg', '*.jpg', '*.pcx', '*.png', '*.psd', '*.tga', '*.dds', '*.exr', '*.tif', '*.tiff']
+                my_QFileDialog_filter = f"Image Files ({' '.join(accepted_QFileDialog_fileTypes)})"
+                fileNames = QtWidgets.QFileDialog.getOpenFileNames(self, ("Select Files to Import"), '', my_QFileDialog_filter) # returns tuple: ( [ list of file paths], your filter: 'Image Files (*.png *.jpg *.bmp)')
 
                 for fileName in fileNames[0]:
                         if fileName in self.stored_fileNames: # LOG & CONTINUE if duplicates in self.stored_fileNames list

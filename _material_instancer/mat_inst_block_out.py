@@ -1,3 +1,4 @@
+from unittest.mock import Base
 import unreal
 
 import sys, os
@@ -13,10 +14,10 @@ sys.path.append(script_dir)
 #           Before  Importing Images
 #           and Connecting Images into Material Instance...
 #
-#       - ENSURE only Texture2d File Formats are Selectable in File Dialog
-#       - CHECK if single selected Content Browser Asset
-#       - COMPARE Master Mat Tex Params NAMES suffix     == stored_fileNames suffix
-#       - COMPARE Master Mat Tex Params COUNT            == stored_fileNames COUNT 
+#       - ENSURE only Texture2d File Formats are Selectable in File Dialog                      ☒ - material_instancer.py > my_QFileDialog_filter
+#       - CHECK if single selected Content Browser Asset                                        ☒ - def get_single_selected_content_browser_material()
+#       - COMPARE Master Mat Tex Params NAMES suffix     == stored_fileNames suffix             ☐
+#       - COMPARE Master Mat Tex Params COUNT            == stored_fileNames COUNT              ☐
 
 #   IF CHECKS PASS continue to...
 #
@@ -25,10 +26,176 @@ sys.path.append(script_dir)
 #       - Build Material Instance of Selected Master Material
 #       - Slot in imported_assets (Texture2d) into Material Instance
 
-
-
-
 stored_fileNames = [rf'C:/Users/blake/Pictures/Wallpaper/a.jpg',]
+
+class ValidationError(Exception):
+    pass
+
+# filters out selection to a single asset of <class Material>
+def get_single_selected_material() -> List[unreal.Material]:
+
+    editor_utility = unreal.EditorUtilityLibrary()
+    selected_assets = editor_utility.get_selected_assets()
+
+    stored_single_material = []
+
+    # CHECK if number of selected assets is ONE
+    if len(selected_assets) != 1:
+        raise ValidationError(f'Please select only 1 Master Material in Content Browser')
+
+    
+    selected_asset = selected_assets[0]
+    # CHECK if selected asset is instance of <class Material>
+    if not isinstance(selected_asset, unreal.Material):
+        unreal.log_error(f'Please select Asset of <class "Material">')
+        raise ValidationError(f'Currently Selected Asset "{selected_asset.get_name()}" is a {type(selected_asset)}')
+
+
+# IF CHECKS PASS then append asset to 'stored_single_material'
+    unreal.log(f'Master Material: "{selected_asset.get_name()}" selected!')
+    stored_single_material.append(selected_asset)
+
+    return stored_single_material
+
+
+def get_selected_material_tex_params():
+
+    try:
+        stored_master_material = get_single_selected_material()
+        success = True  # Flag to track success
+    except ValidationError as e:
+        unreal.log_error(str(e))
+        success = False  # Flag indicating failure
+
+    # Continue only if 'single_selected_material' is VALID
+    if success:
+        stored_master_material = stored_master_material[0]
+
+
+        
+
+        list_of_tex2d_params = unreal.MaterialEditingLibrary.get_texture_parameter_names(stored_master_material)
+
+        print(list_of_tex2d_params)
+        print(f' NUM OF MAT EXPRESSIONS: {unreal.MaterialEditingLibrary.get_num_material_expressions(stored_master_material)}')
+
+        Base_Color_Param = unreal.MaterialEditingLibrary.get_material_default_texture_parameter_value(stored_master_material, list_of_tex2d_params[0])
+
+
+
+
+
+
+class TexParamInfo:
+    def __init__(self, material_path, mat_expression_group):
+
+        self.material_path = material_path
+        self.mat_expression_group = mat_expression_group
+
+        self.tex_param_list = []
+
+    def walk_material_node_system(self):
+        # Load your material asset
+        my_material_asset = unreal.load_asset(self.material_path)
+
+        # Store all MaterialProperty methods (Base Color, Normal, Roughness, etc.)
+        material_property_list = [method for method in dir(unreal.MaterialProperty) if method.startswith("MP_")]
+
+        for material_property in material_property_list:
+            # print(f'Walking {material_property}...')
+            # Search inside MY_MATERIAL_ASSET and locate INPUT NODE for each Material Property
+            my_material_expression = unreal.MaterialEditingLibrary.get_material_property_input_node(
+                my_material_asset, getattr(unreal.MaterialProperty, material_property))
+
+            if my_material_expression is None:
+                continue
+
+            # Start the recursive traversal
+            self.recursively_walk_input_nodes(my_material_asset, my_material_expression)
+
+    def recursively_walk_input_nodes(self, material_asset, material_expression):
+        # Get the inputs for the current material expression
+        input_nodes = unreal.MaterialEditingLibrary.get_inputs_for_material_expression(material_asset, material_expression)
+
+        # Iterate through the input nodes
+        for input_node in input_nodes:
+            if input_node is None:
+                continue
+
+            if isinstance(input_node, unreal.MaterialExpressionTextureSampleParameter2D):
+                if input_node.get_editor_property("group") == self.mat_expression_group:
+                    self.tex_param_list.append(input_node)
+
+            # Recursively call the function for the child node
+            self.recursively_walk_input_nodes(material_asset, input_node)
+
+    def get_texture_group_in_tex_param_list(self):
+        for tex_param in self.tex_param_list:
+            print('========================================')
+            print(tex_param)
+            try:
+                print(f'Texture Parameter group name --             {tex_param.get_editor_property("group")}')
+                print(f'Texture Parameter name --                   {tex_param.get_editor_property("parameter_name")}')
+                print(f'Texture Parameter file --                   {tex_param.get_editor_property("texture")}')
+            except:
+                pass
+
+    def execute(self):
+        self.walk_material_node_system()
+        self.get_texture_group_in_tex_param_list()
+
+    def return_tex_param_list(self):
+        self.walk_material_node_system()
+        return self.tex_param_list
+
+
+
+
+def get_tex_param_names(material_path):
+        
+        my_material_asset = unreal.load_asset(material_path)
+        list_of_tex2d_params = unreal.MaterialEditingLibrary.get_texture_parameter_names(my_material_asset)
+        print(f'NAME OF PARAMETER: {list_of_tex2d_params[0]}') # Prints out:        "NAME OF PARAMETER: Base_Color_Param"
+
+
+if __name__ == "__main__":
+    material_path = "/Game/Python/Material_Instancer/NewMaterial"
+    mat_expression_group = 'IMPORT_PARAMS'
+
+    get_tex2d_param_info = TexParamInfo(material_path, mat_expression_group)
+    tex_param_list = get_tex2d_param_info.return_tex_param_list()
+
+    for tex_param in tex_param_list:
+        print('========================================')
+        print(tex_param)
+        try:
+            print(f'Texture Parameter group name --             {tex_param.get_editor_property("group")}')
+            print(f'Texture Parameter name --                   {tex_param.get_editor_property("parameter_name")}')
+            print(f'Texture Parameter file --                   {tex_param.get_editor_property("texture")}')
+        except:
+            pass
+
+    get_tex_param_names(material_path)
+
+
+
+
+# TODO How to find Tex Params based on Details > Material Experssion > Group?
+
+
+
+# TODO      - COMPARE Master Mat Tex Params NAMES suffix     == stored_fileNames suffix             
+# TODO      - COMPARE Master Mat Tex Params COUNT            == stored_fileNames COUNT
+
+
+
+
+
+
+
+
+
+
 
 def import_files():
 
@@ -63,8 +230,8 @@ def get_recently_imported_assets() -> List[unreal.Texture2D]:
 
     # list assets in current directory
     current_directory = unreal.EditorUtilityLibrary.get_current_content_browser_path()
-    editor_asset_lib = unreal.EditorAssetLibrary
-    list_asset_paths = editor_asset_lib.list_assets(current_directory)
+    Editor_Asset_Lib = unreal.EditorAssetLibrary
+    list_asset_paths = Editor_Asset_Lib.list_assets(current_directory)
     
     # initiliaze List for ASSETS in current content browser that were recently imported
     stored_assets = []
@@ -72,7 +239,7 @@ def get_recently_imported_assets() -> List[unreal.Texture2D]:
     for asset_path in list_asset_paths:
 
         # Load the asset to expose properties (Details Panel View in UE)
-        loaded_asset = editor_asset_lib.load_asset(asset_path)
+        loaded_asset = Editor_Asset_Lib.load_asset(asset_path)
         print(f'----------------- Currently Loaded Asset: {loaded_asset.get_fname()}')
 
         try: # Try and see if loaded_asset has 'asset_import_data'
@@ -100,47 +267,8 @@ def get_recently_imported_assets() -> List[unreal.Texture2D]:
             pass
 
     return stored_assets
-    
-        
-
-
-# returns selected assets inside content browser
-# filters out selection to a single asset of <class Material>
-def get_single_selected_content_browser_material() -> List[unreal.Material]:
-
-    editor_utility = unreal.EditorUtilityLibrary()
-    selected_assets = editor_utility.get_selected_assets()
-
-    stored_master_material = []
-
-    # CHECK if number of selected assets is ONE
-    if len(selected_assets) != 1:
-        unreal.log_warning(f'Please select only 1 Master Material in Content Browser')
-        return  # Exit the function if the condition is not met
-
-    # CHECK if selected asset is instance of <class Material>
-    for asset in selected_assets:
-        if not isinstance(asset, unreal.Material):
-            unreal.log_warning(f'Currently Selected Asset "{asset.get_name()}" is a {type(asset)}')
-            unreal.log_warning(f'Please select Asset of <class "Material">')
-            continue
-
-    # IF CHECKS PASS then append asset to 'stored_master_material'
-        unreal.log(f'Master Material: "{asset.get_name()}" selected!')
-        stored_master_material.append(asset)
-
-    return stored_master_material
-
-
-def run():
-    get_single_selected_content_browser_material()
-
-
-    # import_files()
 
 
 
 
-
-run()
 
