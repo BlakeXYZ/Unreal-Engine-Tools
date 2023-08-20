@@ -10,14 +10,20 @@ sys.path.append(script_dir)
 
 
 
+#       USER REQUIREMENTS
+#           Make a MATERIAL EXPRESSION GROUP name & Apply to all textures you wish to often replace
+#           Proper Naming Convention for Imported Textures ('_BC, _N, _ORM' etc.)
+# 
 #       VALIDATION CODE
 #           Before  Importing Images
 #           and Connecting Images into Material Instance...
 #
 #       - ENSURE only Texture2d File Formats are Selectable in File Dialog                      ☒ - material_instancer.py > my_QFileDialog_filter
 #       - CHECK if single selected Content Browser Asset                                        ☒ - def get_single_selected_content_browser_material()
-#       - COMPARE Master Mat Tex Params NAMES suffix     == stored_fileNames suffix             ☐
+#       - FILTER all Material Nodes with Mat Expression GROUP (class TexParamInfo)              ☒
 #       - COMPARE Master Mat Tex Params COUNT            == stored_fileNames COUNT              ☐
+#       - COMPARE Master Mat Tex Params NAMES suffix     == stored_fileNames suffix             ☐
+
 
 #   IF CHECKS PASS continue to...
 #
@@ -25,6 +31,15 @@ sys.path.append(script_dir)
 #       - get_recently_imported_assets
 #       - Build Material Instance of Selected Master Material
 #       - Slot in imported_assets (Texture2d) into Material Instance
+
+# Advantage of get + storing all Tex Params using "MATERIAL EXPRESSION GROUP name" VS. "get_texture_parameter_names"
+#
+#   get_texture_parameter_names relies restricts user (example: find all '_Normal' maps, may include more than one in Material Node Network)
+#                                                     Forces user to name all Texture2dParams, prone to user error.
+#
+#   MATERIAL EXPRESSION GROUP name is more flexible, do not need to name each Texture2dParams, only need to find Params with Group then store Param's Texture's Suffix
+
+
 
 stored_fileNames = [rf'C:/Users/blake/Pictures/Wallpaper/a.jpg',]
 
@@ -73,16 +88,6 @@ def get_selected_material_tex_params():
 
 
         
-
-        list_of_tex2d_params = unreal.MaterialEditingLibrary.get_texture_parameter_names(stored_master_material)
-
-        print(list_of_tex2d_params)
-        print(f' NUM OF MAT EXPRESSIONS: {unreal.MaterialEditingLibrary.get_num_material_expressions(stored_master_material)}')
-
-        Base_Color_Param = unreal.MaterialEditingLibrary.get_material_default_texture_parameter_value(stored_master_material, list_of_tex2d_params[0])
-
-
-
 
 
 
@@ -151,13 +156,6 @@ class TexParamInfo:
 
 
 
-def get_tex_param_names(material_path):
-        
-        my_material_asset = unreal.load_asset(material_path)
-        list_of_tex2d_params = unreal.MaterialEditingLibrary.get_texture_parameter_names(my_material_asset)
-        print(f'NAME OF PARAMETER: {list_of_tex2d_params[0]}') # Prints out:        "NAME OF PARAMETER: Base_Color_Param"
-
-
 if __name__ == "__main__":
     material_path = "/Game/Python/Material_Instancer/NewMaterial"
     mat_expression_group = 'IMPORT_PARAMS'
@@ -175,7 +173,16 @@ if __name__ == "__main__":
         except:
             pass
 
-    get_tex_param_names(material_path)
+
+        tex_asset = tex_param.get_editor_property("texture")
+
+        if isinstance(tex_asset, unreal.Texture2D):
+            print(f"Loaded Tex Asset in Param: {tex_asset.get_fname()}")
+
+
+        # break #debugging 
+
+    print(f'Tex Param Count: {len(tex_param_list)}')
 
 
 
@@ -269,6 +276,13 @@ def get_recently_imported_assets() -> List[unreal.Texture2D]:
     return stored_assets
 
 
+
+
+# def get_tex_param_names(material_path):
+        
+#         my_material_asset = unreal.load_asset(material_path)
+#         list_of_tex2d_params = unreal.MaterialEditingLibrary.get_texture_parameter_names(my_material_asset)
+#         for param in list_of_tex2d_params: print(f'name of param: {param}') # Prints out:        "NAME OF PARAMETER: Base_Color_Param"
 
 
 
