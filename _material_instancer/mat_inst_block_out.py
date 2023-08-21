@@ -27,10 +27,12 @@ sys.path.append(script_dir)
 
 #   IF CHECKS PASS continue to...
 #
-#       - Import Images
+#       - Import Files
 #       - get_recently_imported_assets
 #       - Build Material Instance of Selected Master Material
 #       - Slot in imported_assets (Texture2d) into Material Instance
+
+
 
 # Advantage of get + storing all Tex Params using "MATERIAL EXPRESSION GROUP name" VS. "get_texture_parameter_names"
 #
@@ -91,13 +93,14 @@ def get_selected_material_tex_params():
 
 
 
-class TexParamInfo:
-    def __init__(self, material_path, mat_expression_group):
+class TexParamData:
+    def __init__(self, material_path, user_defined_paramGroup=None):
 
         self.material_path = material_path
-        self.mat_expression_group = mat_expression_group
+        self.user_defined_paramGroup = user_defined_paramGroup
 
-        self.tex_param_list = []
+        self.LIST_textures_in_user_defined_paramGroup = []
+        self.LIST_all_paramGroups = []
 
     def walk_material_node_system(self):
         # Load your material asset
@@ -122,20 +125,28 @@ class TexParamInfo:
         # Get the inputs for the current material expression
         input_nodes = unreal.MaterialEditingLibrary.get_inputs_for_material_expression(material_asset, material_expression)
 
-        # Iterate through the input nodes
+        # Iterate through the all of the Selected Material's input nodes
         for input_node in input_nodes:
             if input_node is None:
                 continue
-
+            
+            # if node inside Material is Texture2d Input Node (TextureSampleParameter2d) 
             if isinstance(input_node, unreal.MaterialExpressionTextureSampleParameter2D):
-                if input_node.get_editor_property("group") == self.mat_expression_group:
-                    self.tex_param_list.append(input_node)
+
+                # Storing Textures ONLY inside user defined Parameter Group
+                if input_node.get_editor_property("group") == self.user_defined_paramGroup:
+                    if input_node not in self.LIST_textures_in_user_defined_paramGroup:
+                        self.LIST_textures_in_user_defined_paramGroup.append(input_node)
+
+                # Storing all Texture Parameter Groups inside a List
+                if input_node.get_editor_property("group") not in self.LIST_all_paramGroups:
+                    self.LIST_all_paramGroups.append(input_node.get_editor_property("group"))
 
             # Recursively call the function for the child node
             self.recursively_walk_input_nodes(material_asset, input_node)
 
     def get_texture_group_in_tex_param_list(self):
-        for tex_param in self.tex_param_list:
+        for tex_param in self.LIST_textures_in_user_defined_paramGroup:
             print('========================================')
             print(tex_param)
             try:
@@ -149,40 +160,80 @@ class TexParamInfo:
         self.walk_material_node_system()
         self.get_texture_group_in_tex_param_list()
 
-    def return_tex_param_list(self):
+    def return_LIST_textures_in_user_defined_paramGroup(self):
         self.walk_material_node_system()
-        return self.tex_param_list
+        return self.LIST_textures_in_user_defined_paramGroup
+
+    def return_LIST_all_paramGroups(self):
+        self.walk_material_node_system()
+        return self.LIST_all_paramGroups
+
+'''
+Logic steps
+
+
+Select Master Material
+
+Run Class to find and list Parameter Groups
+
+Store All Textures found?
+
+
+
+User selects specific Param group 
+
+All Stored Textures list is then iterated through, finding only Textures with User selected Param Group
+
+
+
+
+'''
+
+
 
 
 
 
 if __name__ == "__main__":
+
     material_path = "/Game/Python/Material_Instancer/NewMaterial"
-    mat_expression_group = 'IMPORT_PARAMS'
-
-    get_tex2d_param_info = TexParamInfo(material_path, mat_expression_group)
-    tex_param_list = get_tex2d_param_info.return_tex_param_list()
-
-    for tex_param in tex_param_list:
-        print('========================================')
-        print(tex_param)
-        try:
-            print(f'Texture Parameter group name --             {tex_param.get_editor_property("group")}')
-            print(f'Texture Parameter name --                   {tex_param.get_editor_property("parameter_name")}')
-            print(f'Texture Parameter file --                   {tex_param.get_editor_property("texture")}')
-        except:
-            pass
 
 
-        tex_asset = tex_param.get_editor_property("texture")
 
-        if isinstance(tex_asset, unreal.Texture2D):
-            print(f"Loaded Tex Asset in Param: {tex_asset.get_fname()}")
+    # material_path = "/Game/Python/Material_Instancer/NewMaterial"
+    # mat_parameter_group = 'IMPORT_PARAMS'
+
+    # inst_TexParamData = TexParamData(material_path)
+    # LIST_textures_in_user_defined_paramGroup = inst_TexParamData.return_LIST_textures_in_user_defined_paramGroup()
+
+    # LIST_all_paramGroups = inst_TexParamData.return_LIST_all_paramGroups()
+
+    # print(LIST_all_paramGroups)
+    # print(LIST_textures_in_user_defined_paramGroup)
+
+    # print('LIST_all_paramGroups')
+    # for paramgroup in LIST_all_paramGroups:
+    #     print(paramgroup)
+
+    # for tex_param in LIST_textures_in_user_defined_paramGroup:
+    #     print('========================================')
+    #     print(tex_param)
+    #     try:
+    #         print(f'Texture Parameter group name --             {tex_param.get_editor_property("group")}')
+    #         print(f'Texture Parameter name --                   {tex_param.get_editor_property("parameter_name")}')
+    #         print(f'Texture Parameter file --                   {tex_param.get_editor_property("texture")}')
+    #     except:
+    #         pass
 
 
-        # break #debugging 
+    #     tex_asset = tex_param.get_editor_property("texture")
 
-    print(f'Tex Param Count: {len(tex_param_list)}')
+    #     if isinstance(tex_asset, unreal.Texture2D):
+    #         print(f"Loaded Tex Asset in Param: {tex_asset.get_fname()}")
+
+
+    #     # break #debugging 
+
 
 
 
