@@ -1,6 +1,8 @@
 import unreal
-import sys, os
+import sys, os, importlib     
+from typing import List                   
 from functools import partial  # if you want to include args with UI method calls
+
 from PySide2 import QtUiTools, QtWidgets, QtGui
 
 import unreal_stylesheet
@@ -46,23 +48,32 @@ class my_importTextures_GUI(QtWidgets.QWidget):
                 #attach the widget to the instance of this class (aka self)
                 self.mainWidget.setParent(self)
 
+                ###
+                ###
                 #find interactive elements of UI
+                self.btn_get_single_selected_material = self.mainWidget.findChild(QtWidgets.QPushButton, 'btn_get_single_selected_material')
+                self.lineEdit_loaded_material_name = self.mainWidget.findChild(QtWidgets.QLineEdit, 'lineEdit_loaded_material_name')
+                self.comboBox_LIST_all_texture_paramGroups = self.mainWidget.findChild(QtWidgets.QComboBox, 'comboBox_LIST_all_texture_paramGroups')
+
                 self.btn_openFiles = self.mainWidget.findChild(QtWidgets.QPushButton, 'btn_openFiles')
                 self.gridLayout_filePaths = self.mainWidget.findChild(QtWidgets.QGridLayout, 'gridLayout_filePath')
 
-                self.btn_clearConsole =  self.mainWidget.findChild(QtWidgets.QPushButton, 'btn_clearConsole')
                 self.btn_importFiles =  self.mainWidget.findChild(QtWidgets.QPushButton, 'btn_importFiles')
                 self.btn_close = self.mainWidget.findChild(QtWidgets.QPushButton, 'btn_closeWindow')
 
-                self.textEdit_consoleLog = self.mainWidget.findChild(QtWidgets.QTextEdit, 'textEdit_consoleLog')
-
+                ###
+                ###
                 #assign clicked handler to buttons
+                self.btn_get_single_selected_material.clicked.connect(self.get_single_selected_material)
+                self.comboBox_LIST_all_texture_paramGroups.activated.connect(self.filter_textures_by_user_selected_paramGroup)
+
                 self.btn_openFiles.clicked.connect(self.append_files)
+
                 self.btn_importFiles.clicked.connect(self.import_files)
-
-
                 self.btn_close.clicked.connect(self.close_window)
-                self.btn_clearConsole.clicked.connect(self.clear_consoleLog_text) 
+
+
+
 
                 # List to ensure no DUPLICATES get added
                 self.stored_fileNames = []  # Initialize the list here
@@ -77,6 +88,9 @@ class my_importTextures_GUI(QtWidgets.QWidget):
 
 
 
+
+
+
         """
 
         GUI Interaction Functions
@@ -87,8 +101,6 @@ class my_importTextures_GUI(QtWidgets.QWidget):
                 """
                 Work with QFileDialog
                 """
-                current_consoleLog =  self.textEdit_consoleLog.toHtml()
-                # self.textEdit_consoleLog.setHtml(f'{current_consoleLog} hello')
 
                 # QFileDialog file type filter
                 accepted_QFileDialog_fileTypes = ['*.bmp', '*.float', '*.jpeg', '*.jpg', '*.pcx', '*.png', '*.psd', '*.tga', '*.dds', '*.exr', '*.tif', '*.tiff']
@@ -97,8 +109,7 @@ class my_importTextures_GUI(QtWidgets.QWidget):
 
                 for fileName in fileNames[0]:
                         if fileName in self.stored_fileNames: # LOG & CONTINUE if duplicates in self.stored_fileNames list
-                                current_consoleLog =  self.textEdit_consoleLog.toHtml()
-                                self.textEdit_consoleLog.setHtml(f'{current_consoleLog}Warning: {fileName} is already selected!')
+                                unreal.log(f'{fileName} is already selected!')
                                 continue
 
                 # IF CHECKS PASS: append 'fileName' to stored_fileNames list
@@ -138,10 +149,6 @@ class my_importTextures_GUI(QtWidgets.QWidget):
                                 self.row += 1
 
                         self.UTILITY_reorganize_gridLayout()
-
-
-
-                self.UTILITY_move_consoleLog_cursor_to_end()
         
 
         def remove_subWidget(self, my_subwidget):
@@ -165,16 +172,6 @@ class my_importTextures_GUI(QtWidgets.QWidget):
                 self.UTILITY_btn_importFiles_state()
 
 
-        def clear_consoleLog_text(self):
-                self.textEdit_consoleLog.setHtml(f'Console Log...')
-
-                # Set the desired color using CSS style
-                color = "#715101" 
-                colored_text = f'<span style="color: {color};">Console Log...</span>'
-                
-                self.textEdit_consoleLog.setHtml(colored_text)
-
-
         def UTILITY_reorganize_gridLayout(self):
                 """
                  reorganizes the grid layout by iterating through the stored widgets, 
@@ -190,13 +187,6 @@ class my_importTextures_GUI(QtWidgets.QWidget):
                         self.row -= 1
 
                 self.gridLayout_filePaths.update()
-
-     # Ensure the latest text is visible at the bottom
-        def UTILITY_move_consoleLog_cursor_to_end(self):
-                cursor = self.textEdit_consoleLog.textCursor()
-                cursor.movePosition(cursor.End)
-                self.textEdit_consoleLog.setTextCursor(cursor)
-                self.textEdit_consoleLog.ensureCursorVisible()
 
         def UTILITY_btn_importFiles_state(self):
                 if len(self.stored_fileNames) == 0:
@@ -223,23 +213,54 @@ class my_importTextures_GUI(QtWidgets.QWidget):
 
         """
 
-        Connect GUI to Logic
+        Connect Logic to GUI
 
         """
+        # AutoMI_01_Load_Mat
+        def get_single_selected_material(self):
 
+                import AutoMI_01_Load_Mat
+                importlib.reload(AutoMI_01_Load_Mat)           # Reloads imported .py file, without, edits to this imported file will not carry over
+
+                self.single_selected_material = AutoMI_01_Load_Mat.get_single_selected_material()
+
+                self.LIST_all_texture_paramGroups =          AutoMI_01_Load_Mat.LIST_all_texture_paramGroups(self.single_selected_material.get_path_name())
+                self.LIST_all_textures =                     AutoMI_01_Load_Mat.LIST_all_textures(self.single_selected_material.get_path_name())
+
+                print(f'TOTAL TEXTURE COUNT: {len(self.LIST_all_textures)}')
+
+                self.lineEdit_loaded_material_name.setText(self.single_selected_material.get_name())
+                self.comboBox_LIST_all_texture_paramGroups.clear()
+                self.comboBox_LIST_all_texture_paramGroups.addItem('-- Select Group --')
+                self.comboBox_LIST_all_texture_paramGroups.addItems(self.LIST_all_texture_paramGroups)
+
+
+        # AutoMI_02_Load_ParamGroup
+        def filter_textures_by_user_selected_paramGroup(self):
+
+                import AutoMI_02_Load_ParamGroup
+                importlib.reload(AutoMI_02_Load_ParamGroup)           # Reloads imported .py file, without, edits to this imported file will not carry over
+
+                AutoMI_02_Load_ParamGroup.filter_textures_by_user_selected_paramGroup(self.LIST_all_texture_paramGroups, self.LIST_all_textures, self.comboBox_LIST_all_texture_paramGroups.currentText())
+
+
+
+
+
+        # AutoMI_04_Build_MI
         def import_files(self):
 
-                import importlib                        
-                import material_instancer_logic
-                importlib.reload(material_instancer_logic)           # Reloads imported .py file, without, edits to this imported file will not carry over
+                import AutoMI_04_Build_MI
+                importlib.reload(AutoMI_04_Build_MI)           # Reloads imported .py file, without, edits to this imported file will not carry over
 
                 destination_path = unreal.EditorUtilityLibrary.get_current_content_browser_path()
                 file_names = self.stored_fileNames
 
-                material_instancer_logic.UTILITY_import_files(file_names, destination_path)
+                AutoMI_04_Build_MI.import_files(file_names, destination_path)
 
-                current_consoleLog =  self.textEdit_consoleLog.toHtml()
-                self.textEdit_consoleLog.setHtml(f'{current_consoleLog}Successfully Imported to Path: {destination_path}')
+                unreal.log(f'Successfully Imported to Path: {destination_path}')
+
+
 
 
 
