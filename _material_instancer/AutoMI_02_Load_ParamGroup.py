@@ -16,7 +16,7 @@ class ValidationError(Exception):
 
 
 
-def filter_textures_by_user_selected_paramGroup(LIST_all_texture_paramGroups, LIST_all_textures, user_selected_paramGroup):
+def filter_textures_by_user_selected_paramGroup(LIST_all_textures, user_selected_paramGroup):
 
     print('============== RUNNING FILTER ==============')
     for texture in LIST_all_textures:

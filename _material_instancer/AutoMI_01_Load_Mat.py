@@ -98,6 +98,9 @@ class TexParamData:
 
             ###########
             ###########
+            ##### This check is purely for immediate nodes connected to each Material Property
+            ##### using get_material_property_node
+            ##### Once we go in recursively_walk_input_nodes, we then check inside get_inputs_for_material_expression
             # if node inside Material is Texture2d Input Node (TextureSampleParameter2d) 
             if isinstance(my_material_expression, unreal.MaterialExpressionTextureSampleParameter2D):
 
@@ -152,20 +155,3 @@ class TexParamData:
         self.walk_material_node_system()
         return self.LIST_all_texture_paramGroups
     
-
-def LIST_all_texture_paramGroups(single_selected_material_path):
-
-    inst_TexParamData = TexParamData(single_selected_material_path)
-    LIST_all_texture_paramGroups =   inst_TexParamData.return_LIST_all_texture_paramGroups()
-
-    return LIST_all_texture_paramGroups
-
-
-def LIST_all_textures(single_selected_material_path):
-
-    inst_TexParamData = TexParamData(single_selected_material_path)
-    LIST_all_textures =              inst_TexParamData.return_LIST_all_textures()
-
-    return LIST_all_textures
-
-
