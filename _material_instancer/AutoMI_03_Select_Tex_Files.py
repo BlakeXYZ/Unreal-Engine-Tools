@@ -20,7 +20,6 @@ class ValidationError(Exception):
 ######                   BLOCK OUT CODE                         ######    
 ######                                                          ######
 
-#TODO: SETUP "CHECKPOINT" code
 #
 #   Get A Materials Paramter Group and print out all INFO
 # AutoMI_01_Load_Mat
@@ -79,21 +78,26 @@ def get_single_selected_material():
         for matExpression in LIST_all_matExpressions:
              print(matExpression.get_editor_property("texture").get_name())
              print(DICT_all_textures_suffixes[matExpression])
+
+        print(DICT_all_textures_suffixes)
+
+
+        #### TODO: SHOW Loaded Material Suffixes on GUI
+        print("Loaded Material Suffixes")
+        for key, value in DICT_all_textures_suffixes.items():
+            print(f'_{value}')
+
+
+
+
+        return DICT_all_textures_suffixes
                     
 
 
-
-    
-
-
-
-
-
-# TODO: Store LIST_ALL_TEXTURES into DICTIONARY
-
+### TODO: MAKE this FUNCTION CALLABLE in main code: material_instancer and CALL DICT_all_textures_suffixes 
 
 #   Get texture file list to IMPORT
-def importAssets():
+def importAssets(DICT_all_textures_suffixes):
 
     
     """
@@ -106,7 +110,7 @@ def importAssets():
 
     ]
     # Initialize an empty dictionary
-    DICT_fileNames = {}
+    DICT_filePaths_info = {}
 
     for filePath in filePaths:
         # Get the base filename (without directory)
@@ -114,25 +118,34 @@ def importAssets():
         # Remove the file extension
         fileNameWithoutExtension, fileExtension = os.path.splitext(baseFileName)
 
-        ## GETTING SUFFIX LOGIC and VALIDATION
-        #
+        ###### GETTING SUFFIX LOGIC and VALIDATION
+        ##
+        ##
+
         # Split texture_file_name from the RIGHT by "_" and get last part as suffix
         split_file_name = fileNameWithoutExtension.rsplit("_", 1) # split only once from the right
         if len(split_file_name) > 1:
                 suffix = split_file_name[1]
         else:
-            raise ValidationError(f'Selected Texture File: ""{fileNameWithoutExtension}" DOES NOT CONTAIN A SUFFIX. full file path: {filePath}')
-        #
+        # VALIDATE if filePath contains any SUFFIX
+            raise ValidationError(f'Selected Texture File: ""{fileNameWithoutExtension}" DOES NOT CONTAIN A SUFFIX. Full file path: {filePath}')
+
+        # VALIDATE if filePath Suffixes are in selected material textures suffixes
+        if suffix not in DICT_all_textures_suffixes.values():
+            raise ValidationError(f'Suffix ""{suffix}" in file "{fileNameWithoutExtension}" DOES NOT MATCH ANY MASTER MATERIAL TEXTURE SUFFIXES. Full file path: {filePath}')
+        
         ##
+        ##
+        ######
 
         # Create a dictionary entry for the current file
-        DICT_fileNames[filePath] = {
+        DICT_filePaths_info[filePath] = {
             'fileName': fileNameWithoutExtension,
             'suffix': suffix
         }
 
     # Now, DICT_fileNames contains information about each file
-    for filePath, info_dict in DICT_fileNames.items():
+    for filePath, info_dict in DICT_filePaths_info.items():
         print(f'File Path:                  {filePath}')
         print(f'File Name:                  {info_dict["fileName"]}')
         print(f'Suffix:                     {info_dict["suffix"]}')
@@ -161,10 +174,14 @@ def importAssets():
 def run():
     print("=")
     print("=")
+
+
     print("========== running get_single_selected_material ===========")
-    get_single_selected_material()
+    DICT_all_textures_suffixes = get_single_selected_material()
+
+    
     print("========== running importAssets ===========")
-    importAssets()
+    importAssets(DICT_all_textures_suffixes)
 
 run()
 

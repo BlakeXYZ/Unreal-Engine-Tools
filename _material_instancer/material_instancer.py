@@ -111,6 +111,8 @@ class my_importTextures_GUI(QtWidgets.QWidget):
                         ##
                         ######
 
+                        # TODO: filePath suffix is now stored, need to compare to LIST of matExpression's Textures suffixes and run VALIDATION
+ 
 
 
                         if filePath in self.stored_fileNames: # LOG & CONTINUE if duplicates in self.stored_fileNames list
@@ -284,6 +286,11 @@ class my_importTextures_GUI(QtWidgets.QWidget):
 
                 # Change State of 'select_texture_files' button - continue on in UX Assembly Line
                 self.UTILITY_btn_select_texture_files_state()
+
+        
+        # AutoMI_03_Select_Tex_Files
+        def aaaaaaaaaaaaaaaaaaaaaaa(self):
+                #TODO
 
 
 
