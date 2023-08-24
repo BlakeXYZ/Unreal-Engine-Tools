@@ -77,8 +77,8 @@ class TexParamData:
 
         self.material_path = material_path
 
-        self.LIST_all_textures = []
-        self.LIST_all_texture_paramGroups = []
+        self.LIST_all_matExpressions = []
+        self.LIST_all_matExpression_paramGroups = []
 
     def walk_material_node_system(self):
         # Load your material asset
@@ -105,12 +105,12 @@ class TexParamData:
             if isinstance(my_material_expression, unreal.MaterialExpressionTextureSampleParameter2D):
 
                 # Storing Textures ONLY inside user defined Parameter Group
-                if my_material_expression not in self.LIST_all_textures:
-                    self.LIST_all_textures.append(my_material_expression)
+                if my_material_expression not in self.LIST_all_matExpressions:
+                    self.LIST_all_matExpressions.append(my_material_expression)
 
                 # Storing all Texture Parameter Groups inside a List
-                if my_material_expression.get_editor_property("group") not in self.LIST_all_texture_paramGroups:
-                    self.LIST_all_texture_paramGroups.append(my_material_expression.get_editor_property("group"))
+                if my_material_expression.get_editor_property("group") not in self.LIST_all_matExpression_paramGroups:
+                    self.LIST_all_matExpression_paramGroups.append(my_material_expression.get_editor_property("group"))
             ###########
             ###########
 
@@ -134,24 +134,24 @@ class TexParamData:
             if isinstance(input_node, unreal.MaterialExpressionTextureSampleParameter2D):
 
                 # Storing all Textures in Material
-                if input_node not in self.LIST_all_textures:
-                    self.LIST_all_textures.append(input_node)
+                if input_node not in self.LIST_all_matExpressions:
+                    self.LIST_all_matExpressions.append(input_node)
 
                 # Storing all Texture Parameter Groups as string
-                if input_node.get_editor_property("group") not in self.LIST_all_texture_paramGroups:
+                if input_node.get_editor_property("group") not in self.LIST_all_matExpression_paramGroups:
                     paramGroup_name = str(input_node.get_editor_property("group"))
-                    self.LIST_all_texture_paramGroups.append(paramGroup_name)
+                    self.LIST_all_matExpression_paramGroups.append(paramGroup_name)
             ###########
             ###########
 
             # Recursively call the function for the child node
             self.recursively_walk_input_nodes(material_asset, input_node)
 
-    def return_LIST_all_textures(self):
+    def return_LIST_all_matExpressions(self):
         self.walk_material_node_system()
-        return self.LIST_all_textures
+        return self.LIST_all_matExpressions
 
-    def return_LIST_all_texture_paramGroups(self):
+    def return_LIST_all_matExpression_paramGroups(self):
         self.walk_material_node_system()
-        return self.LIST_all_texture_paramGroups
+        return self.LIST_all_matExpression_paramGroups
     
