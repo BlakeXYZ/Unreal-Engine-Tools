@@ -76,7 +76,7 @@ class my_importTextures_GUI(QtWidgets.QWidget):
                 # Setup for Dynamic Grid / Flow Layou
                 self.column = 0
                 self.row = 1
-                self.max_columns = 4  # Maximum number of columns
+                self.max_columns = 3  # Maximum number of columns
                 self.stored_gridWidgets = []  # Store added item widgets
 
 
@@ -103,7 +103,7 @@ class my_importTextures_GUI(QtWidgets.QWidget):
                 ### calling function thats connected to AutoMI_03_Select_Tex_Files
                 #
                 self.validate_texture_files_and_build_dictionary(filePaths[0], self.stored_fileNames)
-
+                print("++++++++")
                 for root_group, files in self.DICT_grouped_filePaths_config.items():
                         print(f'=== Root Group: {root_group}')
                         for file_info in files:
@@ -116,7 +116,14 @@ class my_importTextures_GUI(QtWidgets.QWidget):
 
 
                 for filePath in filePaths[0]: # fileNames is a tuple where the first element is the list of file paths
- 
+                        # Check that ensures filePath is not added to Dictionary TWICE
+                        if filePath in self.stored_fileNames:
+                                unreal.log_warning(f'SKIPPING - Selected Texture File: {filePath} IS ALREADY SELECTED.')
+                                continue
+
+                        if not any(filePath == file_info["filePath"] for files in self.DICT_grouped_filePaths_config.values() for file_info in files):
+                                continue
+
                 # IF CHECKS PASS: append 'fileName' to stored_fileNames list
                         self.stored_fileNames.append(filePath)
 
@@ -168,7 +175,6 @@ class my_importTextures_GUI(QtWidgets.QWidget):
                         for file_info in files:
                                 if file_info["filePath"] == lineEdit_filePath.text():
                                         # Remove file from the group
-                                        unreal.log(f"REMOVING {file_info}")
                                         files.remove(file_info)
 
                                         if not files:
@@ -180,12 +186,8 @@ class my_importTextures_GUI(QtWidgets.QWidget):
                 if lineEdit_filePath.text() in self.stored_fileNames:
                         self.stored_fileNames.remove(lineEdit_filePath.text())
 
-                print("CONTINING remove subwidget code...")
-
-
                 # Remove sub widget from main window
                 self.gridLayout_filePaths.removeWidget(my_subwidget)
-                print(f"remove {my_subwidget} from gridlayout")
                 my_subwidget.deleteLater()
 
                 # Remove the widget from the item_widgets list
@@ -309,9 +311,6 @@ class my_importTextures_GUI(QtWidgets.QWidget):
                 self.LIST_all_matExpressions =              inst_TexParamData.return_LIST_all_matExpressions()
                 #
                 ###
-
-                print(f'TOTAL TEXTURE COUNT: {len(self.LIST_all_matExpressions)}')
-
 
                 ###
                 # push to GUI

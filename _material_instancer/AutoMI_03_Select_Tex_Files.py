@@ -36,11 +36,11 @@ class SelectTextureFiles:
             self.DICT_grouped_filePaths_config = {}
 
         for filePath in self.filePaths:
-
+            
 
             # Check that ensures filePath is not added to Dictionary TWICE
             if filePath in self.stored_fileNames:
-                raise ValidationError(f'{filePath} is already selected!')
+                continue
 
 
             # Get the base filename (without directory)
@@ -61,7 +61,8 @@ class SelectTextureFiles:
 
                 # VALIDATE if filePath Suffixes are in selected material textures suffixes
                 if suffix not in self.DICT_all_textures_suffixes.values():
-                    raise ValidationError(f'Suffix ""{suffix}" in file "{fileNameWithoutExtension}" DOES NOT MATCH ANY MASTER MATERIAL TEXTURE SUFFIXES. Full file path: {filePath}')
+                    unreal.log_warning(f'SKIPPING - Selected Texture File: "{fileNameWithoutExtension}" DOES NOT MATCH ANY MASTER MATERIAL TEXTURE SUFFIXES. Full file path: {filePath}')
+                    continue
                 
                 if root not in self.DICT_grouped_filePaths_config: # add new root list
                     self.DICT_grouped_filePaths_config[root] = []
@@ -76,7 +77,8 @@ class SelectTextureFiles:
 
             else:
             # VALIDATE if filePath contains any SUFFIX
-                raise ValidationError(f'Selected Texture File: ""{fileNameWithoutExtension}" DOES NOT CONTAIN A SUFFIX. Full file path: {filePath}')
+                unreal.log_warning(f'SKIPPING - Selected Texture File: "{fileNameWithoutExtension}" DOES NOT CONTAIN A SUFFIX. Full file path: {filePath}')
+                continue
             
             ##
             ##
