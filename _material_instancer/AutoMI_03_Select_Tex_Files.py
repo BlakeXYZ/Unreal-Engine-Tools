@@ -19,10 +19,10 @@ class ValidationError(Exception):
 ### TODO: MAKE this FUNCTION CALLABLE in main code: material_instancer and CALL DICT_all_textures_suffixes 
 
 class SelectTextureFiles:
-    def __init__(self, filePaths, stored_fileNames, DICT_all_textures_suffixes, DICT_grouped_filePaths_config):
+    def __init__(self, filePaths, stored_filePaths, DICT_all_textures_suffixes, DICT_grouped_filePaths_config):
 
         self.filePaths = filePaths
-        self.stored_fileNames = stored_fileNames
+        self.stored_filePaths = stored_filePaths
         self.DICT_all_textures_suffixes = DICT_all_textures_suffixes
         self.DICT_grouped_filePaths_config = DICT_grouped_filePaths_config
     
@@ -36,7 +36,7 @@ class SelectTextureFiles:
         for filePath in self.filePaths:
             
             # Check that ensures filePath is not added to Dictionary TWICE
-            if filePath in self.stored_fileNames:
+            if filePath in self.stored_filePaths:
                 continue
 
             # Get the base filename (without directory)
