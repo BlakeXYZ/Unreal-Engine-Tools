@@ -1,3 +1,4 @@
+from pickle import TRUE
 import unreal
 import sys, os, importlib     
 from typing import List                   
@@ -45,6 +46,8 @@ class my_importTextures_GUI(QtWidgets.QWidget):
                 self.btn_get_single_selected_material = self.mainWidget.findChild(QtWidgets.QPushButton, 'btn_get_single_selected_material')
                 self.lineEdit_loaded_material_name = self.mainWidget.findChild(QtWidgets.QLineEdit, 'lineEdit_loaded_material_name')
                 self.comboBox_LIST_all_matExpression_paramGroups = self.mainWidget.findChild(QtWidgets.QComboBox, 'comboBox_LIST_all_matExpression_paramGroups')
+                self.lineEdit_suffix_patterns_found = self.mainWidget.findChild(QtWidgets.QLineEdit, 'lineEdit_suffix_patterns_found')
+
 
                 self.btn_select_texture_files = self.mainWidget.findChild(QtWidgets.QPushButton, 'btn_select_texture_files')
                 self.gridLayout_filePaths = self.mainWidget.findChild(QtWidgets.QGridLayout, 'gridLayout_filePath')
@@ -77,6 +80,10 @@ class my_importTextures_GUI(QtWidgets.QWidget):
                 self.stored_gridWidgets = []  # Store added item widgets
 
 
+                # Initialize base Dictionary for filePath config
+                self.DICT_grouped_filePaths_config = {}
+
+
         """
 
         GUI Interaction Functions
@@ -93,32 +100,23 @@ class my_importTextures_GUI(QtWidgets.QWidget):
                 my_QFileDialog_filter = f"Image Files ({' '.join(accepted_QFileDialog_fileTypes)})"
                 filePaths = QtWidgets.QFileDialog.getOpenFileNames(self, ("Select Files to Import"), '', my_QFileDialog_filter) # returns tuple: ( [ list of file paths], your filter: 'Image Files (*.png *.jpg *.bmp)')
 
+                ### calling function thats connected to AutoMI_03_Select_Tex_Files
+                #
+                self.validate_texture_files_and_build_dictionary(filePaths[0], self.stored_fileNames)
+
+                for root_group, files in self.DICT_grouped_filePaths_config.items():
+                        print(f'=== Root Group: {root_group}')
+                        for file_info in files:
+                                print(f'File Path:                  {file_info["filePath"]}')
+                                print(f'File Name:                  {file_info["fileName"]}')
+                                print(f'Suffix:                     {file_info["suffix"]}')
+                                print('-')
+                #
+                ###
+
+
                 for filePath in filePaths[0]: # fileNames is a tuple where the first element is the list of file paths
-
-                        ###### TODO: compare fileName suffixes to self.DICT_all_textures_suffixes
-                        ##
-                        ##
-
-                        # Get the base filename (without directory)
-                        baseFileName = os.path.basename(filePath)
-                        # Remove the file extension
-                        fileNameWithoutExtension, _ = os.path.splitext(baseFileName)
-                        
-                        print(fileNameWithoutExtension)
-                        print(filePath)
-
-                        ##
-                        ##
-                        ######
-
-                        # TODO: filePath suffix is now stored, need to compare to LIST of matExpression's Textures suffixes and run VALIDATION
  
-
-
-                        if filePath in self.stored_fileNames: # LOG & CONTINUE if duplicates in self.stored_fileNames list
-                                unreal.log(f'{filePath} is already selected!')
-                                continue
-
                 # IF CHECKS PASS: append 'fileName' to stored_fileNames list
                         self.stored_fileNames.append(filePath)
 
@@ -162,11 +160,32 @@ class my_importTextures_GUI(QtWidgets.QWidget):
 
                 # Remove fileName in stored_fileNames list
                 lineEdit_filePath = my_subwidget.findChild(QtWidgets.QLineEdit, 'lineEdit_filePath')
+
+                ### Remove filePath in self.DICT_grouped_filePaths_config
+                #
+
+                for root_group, files in list(self.DICT_grouped_filePaths_config.items()):
+                        for file_info in files:
+                                if file_info["filePath"] == lineEdit_filePath.text():
+                                        # Remove file from the group
+                                        unreal.log(f"REMOVING {file_info}")
+                                        files.remove(file_info)
+
+                                        if not files:
+                                                del self.DICT_grouped_filePaths_config[root_group]
+
+                #
+                ###
+
                 if lineEdit_filePath.text() in self.stored_fileNames:
                         self.stored_fileNames.remove(lineEdit_filePath.text())
 
+                print("CONTINING remove subwidget code...")
+
+
                 # Remove sub widget from main window
                 self.gridLayout_filePaths.removeWidget(my_subwidget)
+                print(f"remove {my_subwidget} from gridlayout")
                 my_subwidget.deleteLater()
 
                 # Remove the widget from the item_widgets list
@@ -177,6 +196,19 @@ class my_importTextures_GUI(QtWidgets.QWidget):
                 
                 # update button state
                 self.UTILITY_btn_build_material_instance_state()
+
+
+        def UTILITY_remove_all_subWidgets(self):
+        ### Backward Logic Flow
+        # IF Paramter Group is changed to anything else, Remove ALL GUI subWidgets and reset self.DICT_grouped_filePaths_config
+
+                # When you remove an item from a list while iterating over it, you can run into unexpected behavior because the indexing and the size of the list are changing dynamically.
+                # To fix this, you should not modify the list you're iterating over inside the loop. One approach is to create a copy of the list and iterate over the copy while removing items from the original list.
+                # This way, you iterate over the copy of the list (copy_of_stored_gridWidgets), and even if you modify the self.stored_gridWidgets list within the loop, it won't affect the iteration process. 
+                copy_of_stored_gridWidgets = list(self.stored_gridWidgets) 
+
+                for my_subwidget in copy_of_stored_gridWidgets:
+                        self.remove_subWidget(my_subwidget)
 
 
         def UTILITY_reorganize_gridLayout(self):
@@ -199,10 +231,21 @@ class my_importTextures_GUI(QtWidgets.QWidget):
         ### UX Assembly Line function, ensures step by step experience
         # Checks if Current Combo Box text == a Param Group in Material
         def UTILITY_btn_select_texture_files_state(self):
-                if self.comboBox_LIST_all_matExpression_paramGroups.currentText() in self.LIST_all_matExpression_paramGroups:
+                
+                if self.SWITCH_btn_select_texture_files_state == False:
+                        self.UTILITY_remove_all_subWidgets()
+
+
+                if self.SWITCH_btn_select_texture_files_state == True and self.comboBox_LIST_all_matExpression_paramGroups.currentText() in self.LIST_all_matExpression_paramGroups:
                         self.btn_select_texture_files.setEnabled(True)
                 else:
                         self.btn_select_texture_files.setEnabled(False)
+                
+
+
+
+
+
 
         
         ### UX Assembly Line function, ensures step by step experience
@@ -214,6 +257,7 @@ class my_importTextures_GUI(QtWidgets.QWidget):
                         self.btn_build_material_instance.setEnabled(True)
 
                 ## TIP: how to see properties of a widget: QtWidgets.QPushButton.setEnabled()
+
 
 
 
@@ -236,6 +280,20 @@ class my_importTextures_GUI(QtWidgets.QWidget):
         Connect Logic to GUI
 
         """
+
+        ######## TODO: DEBUG LOGIC FLOW:
+        ##              How to replicate
+        ##
+        ##              Run Script
+        ##              Select NewMaterial, 'LOAD'
+        ##              IGNORE PARAMS
+        ##              Add N
+        ##              ADD BC separately
+        ##              Switch to IMPORT PARAMS
+        ##              Click LOAD SELECED again
+        ##              IMPORT PARAMS
+        ##              Add a_BC a_N b_N
+
         # AutoMI_01_Load_Mat
         def get_single_selected_material(self):
 
@@ -254,12 +312,20 @@ class my_importTextures_GUI(QtWidgets.QWidget):
 
                 print(f'TOTAL TEXTURE COUNT: {len(self.LIST_all_matExpressions)}')
 
+
+                ###
+                # push to GUI
                 self.lineEdit_loaded_material_name.setText(self.single_selected_material.get_name())
                 self.comboBox_LIST_all_matExpression_paramGroups.clear()
                 self.comboBox_LIST_all_matExpression_paramGroups.addItem('-- Select Group --')
                 self.comboBox_LIST_all_matExpression_paramGroups.addItems(self.LIST_all_matExpression_paramGroups)
 
+
+                self.SWITCH_btn_select_texture_files_state = False
+                self.lineEdit_suffix_patterns_found.setText('')
                 self.UTILITY_btn_select_texture_files_state()
+                #
+                ###
 
 
 
@@ -270,27 +336,46 @@ class my_importTextures_GUI(QtWidgets.QWidget):
                 importlib.reload(AutoMI_02_Load_ParamGroup)           # Reloads imported .py file, without, edits to this imported file will not carry over
 
                 ###
+                # push to GUI, look at STATE before running AutoMI_02_Load_ParamGroup, to set as NONE by default. In case of VALIDATION ERROR between now and next setText.
+                self.SWITCH_btn_select_texture_files_state = False
+                self.lineEdit_suffix_patterns_found.setText('Missing Suffixes!')
+                self.UTILITY_btn_select_texture_files_state()
+                #
+                ###
+
+                ###
                 # Call LoadParamGroup Class and return 'all_filtered_matExpressions' and 'all_textures_suffixes'
                 inst_LoadParamGroup = AutoMI_02_Load_ParamGroup.LoadParamGroup(self.LIST_all_matExpressions, self.comboBox_LIST_all_matExpression_paramGroups.currentText(),  self.single_selected_material)
                 self.LIST_all_filtered_matExpressions, \
                 self.DICT_all_textures_suffixes = inst_LoadParamGroup.filter_matExpressions_by_user_selected_paramGroup()
                 #
-                ##
+                ###
 
-                # For Each matExpression print out it's Texture's Name and Suffix
-                for matExpression in self.LIST_all_filtered_matExpressions:
-                        print(matExpression.get_editor_property("texture").get_name())
-                        print(self.DICT_all_textures_suffixes[matExpression])
+                ###
+                # push to GUI
+                setText_DICT_all_textures_suffixes = ""                         # storing suffixes on a single line
+                for suffix in self.DICT_all_textures_suffixes.values():
+                        setText_DICT_all_textures_suffixes += f" '_{suffix}' "
 
-              
-
-                # Change State of 'select_texture_files' button - continue on in UX Assembly Line
+                self.SWITCH_btn_select_texture_files_state = True
+                self.lineEdit_suffix_patterns_found.setText(setText_DICT_all_textures_suffixes)
                 self.UTILITY_btn_select_texture_files_state()
+                #
+                ###
 
         
         # AutoMI_03_Select_Tex_Files
-        def aaaaaaaaaaaaaaaaaaaaaaa(self):
-                #TODO
+        def validate_texture_files_and_build_dictionary(self, filePaths, stored_fileNames):
+                import AutoMI_03_Select_Tex_Files
+                importlib.reload(AutoMI_03_Select_Tex_Files)           # Reloads imported .py file, without, edits to this imported file will not carry over
+
+                ###
+                # Call LoadParamGroup Class and return 'DICT_grouped_filePaths_config'
+                inst_SelectTextureFiles = AutoMI_03_Select_Tex_Files.SelectTextureFiles(filePaths, stored_fileNames, self.DICT_all_textures_suffixes, self.DICT_grouped_filePaths_config)
+                self.DICT_grouped_filePaths_config = inst_SelectTextureFiles.validate_texture_files_and_build_dictionary()
+                #
+                ###
+
 
 
 
