@@ -29,19 +29,15 @@ class SelectTextureFiles:
     #   Get texture file list to IMPORT
     def validate_texture_files_and_build_dictionary(self):
 
-
-
         # Initialize at very beginning, we want to keep memory of past instances (if QFileDialog is opened multiple times)
         if not self.DICT_grouped_filePaths_config:
             self.DICT_grouped_filePaths_config = {}
 
         for filePath in self.filePaths:
             
-
             # Check that ensures filePath is not added to Dictionary TWICE
             if filePath in self.stored_fileNames:
                 continue
-
 
             # Get the base filename (without directory)
             baseFileName = os.path.basename(filePath)
@@ -54,44 +50,33 @@ class SelectTextureFiles:
             # Split texture_file_name from the RIGHT by "_" and get last part as suffix
             split_file_name = fileNameWithoutExtension.rsplit("_", 1) # split only once from the right
 
-
-            # build Dictionary lists based on root of fileNameWithoutExtension
-            if len(split_file_name) == 2:
-                root, suffix = split_file_name 
-
-                # VALIDATE if filePath Suffixes are in selected material textures suffixes
-                if suffix not in self.DICT_all_textures_suffixes.values():
-                    unreal.log_warning(f'SKIPPING - Selected Texture File: "{fileNameWithoutExtension}" DOES NOT MATCH ANY MASTER MATERIAL TEXTURE SUFFIXES. Full file path: {filePath}')
-                    continue
-                
-                if root not in self.DICT_grouped_filePaths_config: # add new root list
-                    self.DICT_grouped_filePaths_config[root] = []
-
-                # Create a dictionary entry for the current filePath
-                self.DICT_grouped_filePaths_config[root].append({
-                    'filePath': filePath,
-                    'fileName': fileNameWithoutExtension,
-                    'suffix': suffix
-                })
-
-
-            else:
-            # VALIDATE if filePath contains any SUFFIX
+            try:
+                root, suffix = split_file_name
+            except:
+                # VALIDATE if filePath contains any SUFFIX
                 unreal.log_warning(f'SKIPPING - Selected Texture File: "{fileNameWithoutExtension}" DOES NOT CONTAIN A SUFFIX. Full file path: {filePath}')
                 continue
+
+            # VALIDATE if filePath Suffixes are in selected material textures suffixes
+            if suffix not in self.DICT_all_textures_suffixes.values():
+                unreal.log_warning(f'SKIPPING - Selected Texture File: "{fileNameWithoutExtension}" DOES NOT MATCH ANY MASTER MATERIAL TEXTURE SUFFIXES. Full file path: {filePath}')
+                continue
             
+            if root not in self.DICT_grouped_filePaths_config: # add new root list
+                self.DICT_grouped_filePaths_config[root] = []
+
+            # Create a dictionary entry for the current filePath
+            self.DICT_grouped_filePaths_config[root].append({
+                'filePath': filePath,
+                'fileName': fileNameWithoutExtension,
+                'suffix': suffix
+            })
+
+
             ##
             ##
             ######
 
-        # Iterate through the file groups and print configuration
-        # for root_group, self.files in self.DICT_grouped_filePaths_config.items():
-        #     print(f'=== Root Group: {root_group}')
-        #     for file_info in self.files:
-        #         print(f'File Path:                  {file_info["filePath"]}')
-        #         print(f'File Name:                  {file_info["fileName"]}')
-        #         print(f'Suffix:                     {file_info["suffix"]}')
-        #         print('-')
 
         return self.DICT_grouped_filePaths_config
 

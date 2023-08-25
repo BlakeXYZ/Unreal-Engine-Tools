@@ -73,6 +73,8 @@ class my_importTextures_GUI(QtWidgets.QWidget):
                 # update button state
                 self.UTILITY_btn_build_material_instance_state()
 
+                ###
+                ###
                 # Setup for Dynamic Grid / Flow Layou
                 self.column = 0
                 self.row = 1
@@ -80,8 +82,14 @@ class my_importTextures_GUI(QtWidgets.QWidget):
                 self.stored_gridWidgets = []  # Store added item widgets
 
 
-                # Initialize base Dictionary for filePath config
+                ###
+                ###
+                # Initialize Global LISTS + DICTs + SWITCHes
+                self.LIST_all_filtered_matExpressions = []
+                self.DICT_all_filtered_matExpressions_textures_suffixes = {}
                 self.DICT_grouped_filePaths_config = {}
+
+                self.SWITCH_btn_select_texture_files_isEnabled = False
 
 
         """
@@ -113,7 +121,6 @@ class my_importTextures_GUI(QtWidgets.QWidget):
                                 print('-')
                 #
                 ###
-
 
                 for filePath in filePaths[0]: # fileNames is a tuple where the first element is the list of file paths
                         # Check that ensures filePath is not added to Dictionary TWICE
@@ -161,6 +168,7 @@ class my_importTextures_GUI(QtWidgets.QWidget):
                                 self.row += 1
 
                         self.UTILITY_reorganize_gridLayout()
+
         
 
         def remove_subWidget(self, my_subwidget):
@@ -170,7 +178,6 @@ class my_importTextures_GUI(QtWidgets.QWidget):
 
                 ### Remove filePath in self.DICT_grouped_filePaths_config
                 #
-
                 for root_group, files in list(self.DICT_grouped_filePaths_config.items()):
                         for file_info in files:
                                 if file_info["filePath"] == lineEdit_filePath.text():
@@ -179,7 +186,6 @@ class my_importTextures_GUI(QtWidgets.QWidget):
 
                                         if not files:
                                                 del self.DICT_grouped_filePaths_config[root_group]
-
                 #
                 ###
 
@@ -234,21 +240,15 @@ class my_importTextures_GUI(QtWidgets.QWidget):
         # Checks if Current Combo Box text == a Param Group in Material
         def UTILITY_btn_select_texture_files_state(self):
                 
-                if self.SWITCH_btn_select_texture_files_state == False:
+                if self.SWITCH_btn_select_texture_files_isEnabled == False:
                         self.UTILITY_remove_all_subWidgets()
 
 
-                if self.SWITCH_btn_select_texture_files_state == True and self.comboBox_LIST_all_matExpression_paramGroups.currentText() in self.LIST_all_matExpression_paramGroups:
+                if self.SWITCH_btn_select_texture_files_isEnabled == True and self.comboBox_LIST_all_matExpression_paramGroups.currentText() in self.LIST_all_matExpression_paramGroups:
                         self.btn_select_texture_files.setEnabled(True)
                 else:
                         self.btn_select_texture_files.setEnabled(False)
                 
-
-
-
-
-
-
         
         ### UX Assembly Line function, ensures step by step experience
         # Checks if list of 'stored_fileNames' is not zero
@@ -283,19 +283,6 @@ class my_importTextures_GUI(QtWidgets.QWidget):
 
         """
 
-        ######## TODO: DEBUG LOGIC FLOW:
-        ##              How to replicate
-        ##
-        ##              Run Script
-        ##              Select NewMaterial, 'LOAD'
-        ##              IGNORE PARAMS
-        ##              Add N
-        ##              ADD BC separately
-        ##              Switch to IMPORT PARAMS
-        ##              Click LOAD SELECED again
-        ##              IMPORT PARAMS
-        ##              Add a_BC a_N b_N
-
         # AutoMI_01_Load_Mat
         def get_single_selected_material(self):
 
@@ -320,12 +307,11 @@ class my_importTextures_GUI(QtWidgets.QWidget):
                 self.comboBox_LIST_all_matExpression_paramGroups.addItems(self.LIST_all_matExpression_paramGroups)
 
 
-                self.SWITCH_btn_select_texture_files_state = False
+                self.SWITCH_btn_select_texture_files_isEnabled = False
                 self.lineEdit_suffix_patterns_found.setText('')
                 self.UTILITY_btn_select_texture_files_state()
                 #
                 ###
-
 
 
         # AutoMI_02_Load_ParamGroup
@@ -336,7 +322,7 @@ class my_importTextures_GUI(QtWidgets.QWidget):
 
                 ###
                 # push to GUI, look at STATE before running AutoMI_02_Load_ParamGroup, to set as NONE by default. In case of VALIDATION ERROR between now and next setText.
-                self.SWITCH_btn_select_texture_files_state = False
+                self.SWITCH_btn_select_texture_files_isEnabled = False
                 self.lineEdit_suffix_patterns_found.setText('Missing Suffixes!')
                 self.UTILITY_btn_select_texture_files_state()
                 #
@@ -346,18 +332,18 @@ class my_importTextures_GUI(QtWidgets.QWidget):
                 # Call LoadParamGroup Class and return 'all_filtered_matExpressions' and 'all_textures_suffixes'
                 inst_LoadParamGroup = AutoMI_02_Load_ParamGroup.LoadParamGroup(self.LIST_all_matExpressions, self.comboBox_LIST_all_matExpression_paramGroups.currentText(),  self.single_selected_material)
                 self.LIST_all_filtered_matExpressions, \
-                self.DICT_all_textures_suffixes = inst_LoadParamGroup.filter_matExpressions_by_user_selected_paramGroup()
+                self.DICT_all_filtered_matExpressions_textures_suffixes = inst_LoadParamGroup.filter_matExpressions_by_user_selected_paramGroup()
                 #
                 ###
 
                 ###
-                # push to GUI
-                setText_DICT_all_textures_suffixes = ""                         # storing suffixes on a single line
-                for suffix in self.DICT_all_textures_suffixes.values():
-                        setText_DICT_all_textures_suffixes += f" '_{suffix}' "
+                # push to GUI if VALIDATION passes inside inst_LoadParamGroup
+                lineEdit_setText_DICT_all_textures_suffixes = ""                         # storing suffixes on a single line
+                for suffix in self.DICT_all_filtered_matExpressions_textures_suffixes.values():
+                        lineEdit_setText_DICT_all_textures_suffixes += f" '_{suffix}' "
 
-                self.SWITCH_btn_select_texture_files_state = True
-                self.lineEdit_suffix_patterns_found.setText(setText_DICT_all_textures_suffixes)
+                self.SWITCH_btn_select_texture_files_isEnabled = True
+                self.lineEdit_suffix_patterns_found.setText(lineEdit_setText_DICT_all_textures_suffixes)
                 self.UTILITY_btn_select_texture_files_state()
                 #
                 ###
@@ -370,7 +356,7 @@ class my_importTextures_GUI(QtWidgets.QWidget):
 
                 ###
                 # Call LoadParamGroup Class and return 'DICT_grouped_filePaths_config'
-                inst_SelectTextureFiles = AutoMI_03_Select_Tex_Files.SelectTextureFiles(filePaths, stored_fileNames, self.DICT_all_textures_suffixes, self.DICT_grouped_filePaths_config)
+                inst_SelectTextureFiles = AutoMI_03_Select_Tex_Files.SelectTextureFiles(filePaths, stored_fileNames, self.DICT_all_filtered_matExpressions_textures_suffixes, self.DICT_grouped_filePaths_config)
                 self.DICT_grouped_filePaths_config = inst_SelectTextureFiles.validate_texture_files_and_build_dictionary()
                 #
                 ###
