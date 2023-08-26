@@ -72,10 +72,6 @@ class my_importTextures_GUI(QtWidgets.QWidget):
                 self.btn_helpUrl.clicked.connect(self.help_url)
                 self.btn_close.clicked.connect(self.close_window)
 
-                ###
-                ###
-                # update button state
-                self.UTILITY_btn_build_material_instance_state()
 
                 ###
                 ###
@@ -91,12 +87,17 @@ class my_importTextures_GUI(QtWidgets.QWidget):
                 # Initialize Global LISTS + DICTs + SWITCHes
                 self.LIST_stored_filePaths = []  
                 self.DICT_grouped_filePaths_config = {}
-                
+
                 self.LIST_all_filtered_matExpressions = []
                 self.DICT_all_filtered_matExpressions_textures_suffixes = {}
 
                 self.SWITCH_btn_select_texture_files_isEnabled = False
 
+                
+                ###
+                ###
+                # update button state
+                self.UTILITY_btn_build_material_instance_state()
 
         """
 
