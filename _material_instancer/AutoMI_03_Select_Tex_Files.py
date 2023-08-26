@@ -19,11 +19,11 @@ class ValidationError(Exception):
 ### TODO: MAKE this FUNCTION CALLABLE in main code: material_instancer and CALL DICT_all_textures_suffixes 
 
 class SelectTextureFiles:
-    def __init__(self, filePaths, stored_filePaths, DICT_all_textures_suffixes, DICT_grouped_filePaths_config):
+    def __init__(self, filePaths, stored_filePaths, DICT_all_filtered_matExpressions_textures_suffixes, DICT_grouped_filePaths_config):
 
         self.filePaths = filePaths
         self.stored_filePaths = stored_filePaths
-        self.DICT_all_textures_suffixes = DICT_all_textures_suffixes
+        self.DICT_all_filtered_matExpressions_textures_suffixes = DICT_all_filtered_matExpressions_textures_suffixes
         self.DICT_grouped_filePaths_config = DICT_grouped_filePaths_config
     
     #   Get texture file list to IMPORT
@@ -58,7 +58,7 @@ class SelectTextureFiles:
                 continue
 
             # VALIDATE if filePath Suffixes are in selected material textures suffixes
-            if suffix not in self.DICT_all_textures_suffixes.values():
+            if suffix not in self.DICT_all_filtered_matExpressions_textures_suffixes.values():
                 unreal.log_warning(f'SKIPPING - Selected Texture File: "{fileNameWithoutExtension}" DOES NOT MATCH ANY MASTER MATERIAL TEXTURE SUFFIXES. Full file path: {filePath}')
                 continue
             

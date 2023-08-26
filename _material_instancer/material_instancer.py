@@ -5,6 +5,7 @@ from typing import List
 from functools import partial  # if you want to include args with UI method calls
 
 from PySide2 import QtUiTools, QtWidgets, QtGui
+from PySide2.QtCore import QUrl
 
 import unreal_stylesheet
 
@@ -53,23 +54,26 @@ class my_importTextures_GUI(QtWidgets.QWidget):
                 self.gridLayout_filePaths = self.mainWidget.findChild(QtWidgets.QGridLayout, 'gridLayout_filePath')
 
                 self.btn_build_material_instance =  self.mainWidget.findChild(QtWidgets.QPushButton, 'btn_build_material_instance')
+
+                self.btn_helpUrl = self.mainWidget.findChild(QtWidgets.QPushButton, 'btn_helpUrl')
                 self.btn_close = self.mainWidget.findChild(QtWidgets.QPushButton, 'btn_closeWindow')
+
 
                 ###
                 ###
-                #assign clicked handler to buttons
+                # assign clicked handler to buttons
                 self.btn_get_single_selected_material.clicked.connect(self.get_single_selected_material)
                 self.comboBox_LIST_all_matExpression_paramGroups.activated.connect(self.filter_matExpressions_by_user_selected_paramGroup)
 
                 self.btn_select_texture_files.clicked.connect(self.select_texture_files)
 
-                self.btn_build_material_instance.clicked.connect(self.build_material_instance)
+                self.btn_build_material_instance.clicked.connect(self.build_material_instances)
+
+                self.btn_helpUrl.clicked.connect(self.help_url)
                 self.btn_close.clicked.connect(self.close_window)
 
                 ###
                 ###
-                # List to ensure no DUPLICATES get added
-                self.stored_filePaths = []  # Initialize the list here
                 # update button state
                 self.UTILITY_btn_build_material_instance_state()
 
@@ -85,9 +89,11 @@ class my_importTextures_GUI(QtWidgets.QWidget):
                 ###
                 ###
                 # Initialize Global LISTS + DICTs + SWITCHes
+                self.LIST_stored_filePaths = []  
+                self.DICT_grouped_filePaths_config = {}
+                
                 self.LIST_all_filtered_matExpressions = []
                 self.DICT_all_filtered_matExpressions_textures_suffixes = {}
-                self.DICT_grouped_filePaths_config = {}
 
                 self.SWITCH_btn_select_texture_files_isEnabled = False
 
@@ -110,7 +116,7 @@ class my_importTextures_GUI(QtWidgets.QWidget):
 
                 ### calling function thats connected to AutoMI_03_Select_Tex_Files
                 #
-                self.validate_texture_files_and_build_dictionary(filePaths[0], self.stored_filePaths)
+                self.validate_texture_files_and_build_dictionary(filePaths[0], self.LIST_stored_filePaths)
                 print("++++++++")
                 for root_group, files in self.DICT_grouped_filePaths_config.items():
                         print(f'=== Root Group: {root_group}')
@@ -124,7 +130,7 @@ class my_importTextures_GUI(QtWidgets.QWidget):
 
                 for filePath in filePaths[0]: # fileNames is a tuple where the first element is the list of file paths
                         # Check that ensures filePath is not added to Dictionary TWICE
-                        if filePath in self.stored_filePaths:
+                        if filePath in self.LIST_stored_filePaths:
                                 unreal.log_warning(f'SKIPPING - Selected Texture File: {filePath} IS ALREADY SELECTED.')
                                 continue
 
@@ -132,7 +138,7 @@ class my_importTextures_GUI(QtWidgets.QWidget):
                                 continue
 
                 # IF CHECKS PASS: append 'fileName' to stored_fileNames list
-                        self.stored_filePaths.append(filePath)
+                        self.LIST_stored_filePaths.append(filePath)
 
                 # update button state
                         self.UTILITY_btn_build_material_instance_state()
@@ -189,8 +195,8 @@ class my_importTextures_GUI(QtWidgets.QWidget):
                 #
                 ###
 
-                if lineEdit_filePath.text() in self.stored_filePaths:
-                        self.stored_filePaths.remove(lineEdit_filePath.text())
+                if lineEdit_filePath.text() in self.LIST_stored_filePaths:
+                        self.LIST_stored_filePaths.remove(lineEdit_filePath.text())
 
                 # Remove sub widget from main window
                 self.gridLayout_filePaths.removeWidget(my_subwidget)
@@ -256,7 +262,7 @@ class my_importTextures_GUI(QtWidgets.QWidget):
         ### UX Assembly Line function, ensures step by step experience
         # Checks if list of 'stored_fileNames' is not zero
         def UTILITY_btn_build_material_instance_state(self):
-                if len(self.stored_filePaths) == 0:
+                if len(self.LIST_stored_filePaths) == 0:
                         self.btn_build_material_instance.setEnabled(False)
                 else:
                         self.btn_build_material_instance.setEnabled(True)
@@ -272,6 +278,10 @@ class my_importTextures_GUI(QtWidgets.QWidget):
                 """
                 self.mainWidget.resize(self.width(), self.height())
         
+        def help_url(self):
+                url = QUrl('https://github.com/BlakeXYZ/Unreal-Engine-Python-Projects/tree/main/_material_instancer#quick-start')  # Replace with the URL you want to open
+                QtGui.QDesktopServices.openUrl(url)
+
 
         def close_window(self):
                 """
@@ -353,28 +363,28 @@ class my_importTextures_GUI(QtWidgets.QWidget):
 
         
         # AutoMI_03_Select_Tex_Files
-        def validate_texture_files_and_build_dictionary(self, filePaths, stored_fileNames):
+        def validate_texture_files_and_build_dictionary(self, filePaths, stored_filePaths):
                 import AutoMI_03_Select_Tex_Files
                 importlib.reload(AutoMI_03_Select_Tex_Files)           # Reloads imported .py file, without, edits to this imported file will not carry over
 
                 ###
                 # Call LoadParamGroup Class and return 'DICT_grouped_filePaths_config'
-                inst_SelectTextureFiles = AutoMI_03_Select_Tex_Files.SelectTextureFiles(filePaths, stored_fileNames, self.DICT_all_filtered_matExpressions_textures_suffixes, self.DICT_grouped_filePaths_config)
+                inst_SelectTextureFiles = AutoMI_03_Select_Tex_Files.SelectTextureFiles(filePaths, stored_filePaths, self.DICT_all_filtered_matExpressions_textures_suffixes, self.DICT_grouped_filePaths_config)
                 self.DICT_grouped_filePaths_config = inst_SelectTextureFiles.validate_texture_files_and_build_dictionary()
                 #
                 ###
 
 
         # AutoMI_04_Build_MI
-        def build_material_instance(self):
+        def build_material_instances(self):
 
                 import AutoMI_04_Build_MI
                 importlib.reload(AutoMI_04_Build_MI)           # Reloads imported .py file, without, edits to this imported file will not carry over
 
                 destination_path = unreal.EditorUtilityLibrary.get_current_content_browser_path()
-                file_names = self.stored_filePaths
+                
 
-                AutoMI_04_Build_MI.import_files(file_names, destination_path)
+                AutoMI_04_Build_MI.import_files(self.LIST_stored_filePaths, destination_path)
 
                 unreal.log(f'Successfully Imported to Path: {destination_path}')
 
@@ -406,8 +416,8 @@ def openWindow():
         
         my_importTextures_GUI.window = my_importTextures_GUI() # create instance
         my_importTextures_GUI.window.show()
-        my_importTextures_GUI.window.setObjectName('toolWindow') # update this with something unique to your tool
-        my_importTextures_GUI.window.setWindowTitle('my_importTextures_GUI')
+        my_importTextures_GUI.window.setObjectName('Auto Material Instancer Tool Window')
+        my_importTextures_GUI.window.setWindowTitle('Auto Material Instancer')
         unreal.parent_external_window_to_slate(my_importTextures_GUI.window.winId())
         
 openWindow()
