@@ -1,0 +1,120 @@
+Metadata-Version: 2.1
+Name: unreal-stylesheet
+Version: 0.0.2
+Summary: style qt like unreal 5
+Author: Xingyu Lei, Hannes Delbeke
+License: MIT License
+        
+        Copyright (c) 2022 Xingyu Lei
+        
+        Permission is hereby granted, free of charge, to any person obtaining a copy
+        of this software and associated documentation files (the "Software"), to deal
+        in the Software without restriction, including without limitation the rights
+        to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+        copies of the Software, and to permit persons to whom the Software is
+        furnished to do so, subject to the following conditions:
+        
+        The above copyright notice and this permission notice shall be included in all
+        copies or substantial portions of the Software.
+        
+        THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+        IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+        FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+        AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+        LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+        OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+        SOFTWARE.
+        
+Project-URL: Homepage, https://github.com/leixingyu/unrealStylesheet
+Project-URL: Source, https://github.com/leixingyu/unrealStylesheet
+Keywords: qt,unreal,unrealengine,engine,pyside,pyside2,pyside6,PyQt5,PyQt6,stylesheet,dark,night,theme,darkmode,ui
+Classifier: Programming Language :: Python :: 3.7
+Requires-Python: >=3.4
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: importlib-metadata ; python_version < "3.7"
+
+# Unreal Stylesheet [![PyPI](https://img.shields.io/pypi/v/unreal_stylesheet?color=blue)](https://pypi.org/project/unreal-stylesheet/)
+
+ A Qt stylesheet designed to make your tools look native in Unreal Engine 5  
+
+<img src="https://i.imgur.com/y7UP7k3.jpg" alt="main" width="100%"/>  
+
+## Installation
+PIP install the [latest release](https://pypi.org/project/unreal-stylesheet/) from PYPi (recommended):
+```
+python -m pip install unreal-stylesheet
+```
+or install from the repo:
+```
+python -m pip install git+https://github.com/leixingyu/unrealStylesheet
+```
+
+## Using the stylesheet
+
+Simply import `unreal_stylesheet` and call `setup()`:  
+
+```python
+# ensure you have a Qt application:
+# app = QtWidgets.QApplication(sys.argv)
+
+import unreal_stylesheet
+unreal_stylesheet.setup()
+
+# show your qt widgets
+# window = YourTool()
+# window.show()
+```
+
+## Comparison
+
+The following `.ui` files for testing can be found inside the `/ui` folder.  
+
+|default (editor.ui)| ue.qss|
+|---|---|
+|![](https://i.imgur.com/EX5naMy.png)| ![](https://i.imgur.com/M8CU4cN.jpg)|
+
+|default (tree.ui)|ue.qss |
+|---|---|
+|![](https://i.imgur.com/Xk8XYlQ.png)|![](https://i.imgur.com/DcQQwak.jpg) |
+
+|default (progress.ui)| ue.qss|
+|---|---|
+|![](https://i.imgur.com/6yMuCKD.png)| ![](https://i.imgur.com/NyskX8m.jpg)|
+
+## Contribute
+
+Feel free to make a PR or issue if you find a bug, or want to request a feature.  
+Some guidelines to modify this stylesheet:
+
+### Modifying the style sheet
+
+You can modify the `.qss` style sheet directly,  
+or you can modify on top of the _CSS_ preprocessor `.scss` file.  
+Once finished, re-compile the `.qss`:   
+```commandline
+qtsass ue.scss -o ue.qss
+```
+
+> Documentation about .scss can be found: [Sass Official website](https://sass-lang.com/guide)
+>
+> You'll also need to install a Qt specific Sass: [qt-sass](https://github.com/spyder-ide/qtsass)
+
+### Modifying icons
+
+The icons are handled with Qt's resource system (to learn more, visit [here](https://doc.qt.io/qt-5/resources.html))
+
+You can modify the `.qrc` file and re-compile the `.rcc` as follows:
+
+```commandline
+rcc -binary icons.qrc -o icons.rcc
+```
+
+
+## References
+- Qt documentation: 
+    - [stylesheets examples](https://doc.qt.io/qt-5/stylesheet-examples.html)
+    - [stylesheets reference](https://doc.qt.io/qt-5/stylesheet-reference.html)
+- Github repo: [Qt-Material](https://github.com/UN-GCPDS/qt-material)
+- Unreal has a different UI framework (Slate), future [read](https://minimaleffort.tech/qt-to-slate-transition-guide/) on comparing Qt to Slate
+- An example of this stylesheet in action: [unrealScriptEditor](https://github.com/leixingyu/unrealScriptEditor)
