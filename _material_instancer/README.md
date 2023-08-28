@@ -4,10 +4,6 @@
 
 Provide a brief introduction or overview of what your tool accomplishes. Explain its purpose and why someone might want to use it.
 
-### Prerequisites
-
-List any prerequisites or system requirements that users should be aware of before installing and using your tool. This may include software, libraries, or specific hardware.
-
 ### Installation
 
 Explain how to install or set up your tool. Include any prerequisites or dependencies that need to be installed before using the tool. Provide step-by-step instructions if necessary.
