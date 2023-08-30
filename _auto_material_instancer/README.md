@@ -25,7 +25,7 @@ Provide a brief introduction or overview of what your tool accomplishes. Explain
    - Create new Folder inside /All/Content named Python
    - Right click Python Folder and 'Show in Explorer'
    - Move Tool into /Python File Explorer directory
-   - 'Import' 261 changes
+   - 'Import' changes
    - 'Yes' import options 
 
 ![install_tool_demo_python_folder](https://github.com/BlakeXYZ/Unreal-Engine-Python-Projects/assets/37947050/1bdbf43e-3cf7-4dce-9fb5-c573a338d6eb)
