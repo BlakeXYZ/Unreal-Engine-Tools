@@ -3,10 +3,6 @@ import unreal
 import sys, os, importlib
 from typing import List  # Import the List type from the typing module
 
-# import AutoMI_01_Load_Mat
-# importlib.reload(AutoMI_01_Load_Mat)           # Reloads imported .py file, without, edits to this imported file will not carry over
-
-
 # allow for import of custom python scripts
 script_dir = os.path.dirname(os.path.abspath(__file__))
 sys.path.append(script_dir)  
@@ -25,6 +21,7 @@ class SelectTextureFiles:
         self.stored_filePaths = stored_filePaths
         self.DICT_all_filtered_matExpressions_textures_suffixes = DICT_all_filtered_matExpressions_textures_suffixes
         self.DICT_grouped_filePaths_config = DICT_grouped_filePaths_config
+    
     
     #   Get texture file list to IMPORT
     def validate_texture_files_and_build_dictionary(self):

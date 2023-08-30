@@ -29,8 +29,8 @@ class my_importTextures_GUI(QtWidgets.QWidget):
                 # Get the directory where the script is located
                 script_dir = os.path.dirname(os.path.abspath(__file__))
                 ui_subdir = os.path.join(script_dir, 'ui')
-                ui_file_in_subdir = os.path.join(ui_subdir, 'material_instancer.ui')
-                self.subWidget_filePath_ui_dir = os.path.join(ui_subdir, 'material_instancer_subWidget_filePath.ui') # load SubWidget and add self. to be callable in Functions
+                ui_file_in_subdir = os.path.join(ui_subdir, 'AutoMI.ui')
+                self.subWidget_filePath_ui_dir = os.path.join(ui_subdir, 'AutoMI_subWidget_filePath.ui') # load SubWidget and add self. to be callable in Functions
 
 
                 #load the created UI widget
@@ -278,7 +278,7 @@ class my_importTextures_GUI(QtWidgets.QWidget):
                 self.mainWidget.resize(self.width(), self.height())
         
         def help_url(self):
-                url = QUrl('https://github.com/BlakeXYZ/Unreal-Engine-Python-Projects/tree/main/_material_instancer#quick-start')  # Replace with the URL you want to open
+                url = QUrl('https://github.com/BlakeXYZ/Unreal-Engine-Python-Projects/tree/main/_auto_material_instancer#quick-start')  # Replace with the URL you want to open
                 QtGui.QDesktopServices.openUrl(url)
 
 
@@ -361,6 +361,7 @@ class my_importTextures_GUI(QtWidgets.QWidget):
 
         
         # AutoMI_03_Select_Tex_Files
+        # Is called inside FUNCTION: select_texture_files
         def validate_texture_files_and_build_dictionary(self, filePaths, stored_filePaths):
                 from utils import AutoMI_03_Select_Tex_Files
                 importlib.reload(AutoMI_03_Select_Tex_Files)           # Reloads imported .py file, without, edits to this imported file will not carry over
@@ -379,16 +380,8 @@ class my_importTextures_GUI(QtWidgets.QWidget):
                 from utils import AutoMI_04_Build_MI
                 importlib.reload(AutoMI_04_Build_MI)           # Reloads imported .py file, without, edits to this imported file will not carry over
 
-                destination_path = unreal.EditorUtilityLibrary.get_current_content_browser_path()
-                
-
-                AutoMI_04_Build_MI.import_files(self.LIST_stored_filePaths, destination_path)
-
-                unreal.log(f'Successfully Imported to Path: {destination_path}')
-
-
-
-
+                inst_BuildMaterialInstances = AutoMI_04_Build_MI.BuildMaterialInstances(self.LIST_stored_filePaths, self.DICT_grouped_filePaths_config, self.DICT_all_filtered_matExpressions_textures_suffixes, self.single_selected_material)
+                inst_BuildMaterialInstances.build_material_instances()
 
 
 

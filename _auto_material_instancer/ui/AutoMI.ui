@@ -153,7 +153,7 @@
        </size>
       </property>
       <property name="text">
-       <string>Build Material Instance</string>
+       <string>Build Material Instance(s)</string>
       </property>
      </widget>
     </item>
