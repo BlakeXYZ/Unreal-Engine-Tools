@@ -15,8 +15,11 @@ Provide a brief introduction or overview of what your tool accomplishes. Explain
 
 3. Import "Auto Material Instancer" Tool
 
-   - Download Tool from Github
-   - Place Tool into Content Browser Directory: All/Content/Python/
+   - Download 'Unreal-Engine-Python-Projects' Repo
+   - Extract _auto_material_instancer Folder 
+   - Place Folder into Unreal Engine Project, Content Browser Directory: All/Content/Python/
+  
+![autoMI_download_tool](https://github.com/BlakeXYZ/Unreal-Engine-Python-Projects/assets/37947050/d58cfd07-b09b-479f-9301-f23240f209f2)
 
 
 
