@@ -13,19 +13,37 @@ Provide a brief introduction or overview of what your tool accomplishes. Explain
      
 ![ue_proj_settings_py_plugin](https://github.com/BlakeXYZ/Unreal-Engine-Python-Projects/assets/37947050/facf1038-dcdf-443d-aa9d-2d5dc3fdbb8c)
 
-3. Import "Auto Material Instancer" Tool
+3. Download Tool
 
    - Download 'Unreal-Engine-Python-Projects' Repo
    - Extract _auto_material_instancer Folder 
-   - Place Folder into Unreal Engine Project, Content Browser Directory: All/Content/Python/
   
 ![autoMI_download_tool](https://github.com/BlakeXYZ/Unreal-Engine-Python-Projects/assets/37947050/d58cfd07-b09b-479f-9301-f23240f209f2)
 
+4. Add "Auto Material Instancer" Tool into UE Project
+
+   - Create new Folder inside /All/Content named Python
+   - Right click Python Folder and 'Show in Explorer'
+   - Drag and Drop Tool into /Python File Explorer directory
+   - 'Import' 261 changes
+   - 'No All' import options 
+
+![install_tool_demo_python_folder](https://github.com/BlakeXYZ/Unreal-Engine-Python-Projects/assets/37947050/1bdbf43e-3cf7-4dce-9fb5-c573a338d6eb)
+
+![install_tool_demo_move_files](https://github.com/BlakeXYZ/Unreal-Engine-Python-Projects/assets/37947050/bcc4b0b9-fb8b-48e2-8b39-8833e569c3e6)
+
+![install_tool_demo_261_changes_import](https://github.com/BlakeXYZ/Unreal-Engine-Python-Projects/assets/37947050/2153e2f1-69b3-4c00-873e-dd7fc599421c)
+
+![install_tool_demo_import_no_to_all](https://github.com/BlakeXYZ/Unreal-Engine-Python-Projects/assets/37947050/5d525af0-9f04-43ee-beeb-606a4a75ae50)
+
+5. Add Additional PYTHONPATHS
+   - Edit > Project Settings > Python
+   - Add '_auto_material_instancer' folder as Additional Path
+   - Prompted to RESTART UE, please do so
+     
+![install_tool_demo_additional_paths](https://github.com/BlakeXYZ/Unreal-Engine-Python-Projects/assets/37947050/fb5a49d7-8d01-401b-b374-dde9c0c86146)
 
 
-
-
- 
 
 
 Explain how to install or set up your tool. Include any prerequisites or dependencies that need to be installed before using the tool. Provide step-by-step instructions if necessary.
