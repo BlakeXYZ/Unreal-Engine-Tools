@@ -24,7 +24,7 @@ Provide a brief introduction or overview of what your tool accomplishes. Explain
 
    - Create new Folder inside /All/Content named Python
    - Right click Python Folder and 'Show in Explorer'
-   - Drag and Drop Tool into /Python File Explorer directory
+   - Move Tool into /Python File Explorer directory
    - 'Import' 261 changes
    - 'No All' import options 
 
