@@ -10,9 +10,9 @@ Explain how to install or set up your tool. Include any prerequisites or depende
 
 UE Project Settings
 
-Activate Pythong Editor Script Plugin
+- Activate Pythong Editor Script Plugin
 
-Edit > Plugins > Scripting
+- Edit > Plugins > Scripting
 
 ### Quick Start
 
