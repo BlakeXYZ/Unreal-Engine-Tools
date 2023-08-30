@@ -43,10 +43,9 @@ Provide a brief introduction or overview of what your tool accomplishes. Explain
      
 ![install_tool_demo_additional_paths](https://github.com/BlakeXYZ/Unreal-Engine-Python-Projects/assets/37947050/fb5a49d7-8d01-401b-b374-dde9c0c86146)
 
+#### Upon Restart, your Main Menu should now contain a new Item which launches the _auto_material_instancer tool!
 
-
-
-Explain how to install or set up your tool. Include any prerequisites or dependencies that need to be installed before using the tool. Provide step-by-step instructions if necessary.
+![bxyz_mainmenu](https://github.com/BlakeXYZ/Unreal-Engine-Python-Projects/assets/37947050/c7d07bac-3a87-44b9-a9e1-884728bee34d)
 
 
 ## Quick Start
