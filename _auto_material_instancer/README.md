@@ -6,6 +6,7 @@ Provide a brief introduction or overview of what your tool accomplishes. Explain
 
 ## Installation
 1. Open Unreal Engine Project
+_________________________________________
 2. Activate Python Editor Script Plugin
 
    - Edit > Plugins > Scripting
@@ -13,6 +14,7 @@ Provide a brief introduction or overview of what your tool accomplishes. Explain
      
 ![ue_proj_settings_py_plugin](https://github.com/BlakeXYZ/Unreal-Engine-Python-Projects/assets/37947050/facf1038-dcdf-443d-aa9d-2d5dc3fdbb8c)
 
+_________________________________________
 3. Download Tool
 
    - Download 'Unreal-Engine-Python-Projects' Repo
@@ -20,6 +22,7 @@ Provide a brief introduction or overview of what your tool accomplishes. Explain
   
 ![autoMI_download_tool](https://github.com/BlakeXYZ/Unreal-Engine-Python-Projects/assets/37947050/d58cfd07-b09b-479f-9301-f23240f209f2)
 
+_________________________________________
 4. Add "Auto Material Instancer" Tool into UE Project
 
    - Create new Folder inside /All/Content named Python
@@ -32,10 +35,11 @@ Provide a brief introduction or overview of what your tool accomplishes. Explain
 
 ![install_tool_demo_move_files](https://github.com/BlakeXYZ/Unreal-Engine-Python-Projects/assets/37947050/bcc4b0b9-fb8b-48e2-8b39-8833e569c3e6)
 
-![install_tool_demo_261_changes_import](https://github.com/BlakeXYZ/Unreal-Engine-Python-Projects/assets/37947050/2153e2f1-69b3-4c00-873e-dd7fc599421c)
+![install_tool_demo_335_changes_import](https://github.com/BlakeXYZ/Unreal-Engine-Python-Projects/assets/37947050/bd046b38-cfb1-4f61-bea9-352e43346638)
 
-![install_tool_demo_import_no_to_all](https://github.com/BlakeXYZ/Unreal-Engine-Python-Projects/assets/37947050/5d525af0-9f04-43ee-beeb-606a4a75ae50)
+![install_tool_demo_import_font_face_options](https://github.com/BlakeXYZ/Unreal-Engine-Python-Projects/assets/37947050/3e9a674d-3910-464f-a52a-1431f9cddce9)
 
+_________________________________________
 5. Add Additional PYTHONPATHS
    - Edit > Project Settings > Python
    - Add '_auto_material_instancer' folder as Additional Path
@@ -47,7 +51,7 @@ Provide a brief introduction or overview of what your tool accomplishes. Explain
 
 ![bxyz_mainmenu](https://github.com/BlakeXYZ/Unreal-Engine-Python-Projects/assets/37947050/c7d07bac-3a87-44b9-a9e1-884728bee34d)
 
-
+_________________________________________
 ## Quick Start
 
 Describe how to use your tool. Include examples or code snippets to illustrate common use cases. Explain any command-line options, configuration settings, or parameters that users need to be aware of.
