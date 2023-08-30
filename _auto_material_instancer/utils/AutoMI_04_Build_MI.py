@@ -14,20 +14,21 @@ class ValidationError(Exception):
 class BuildMaterialInstances:
 
     def __init__(self, LIST_stored_filePaths, DICT_grouped_filePaths_config, DICT_all_filtered_matExpressions_textures_suffixes, single_selected_material):
-        
 
-
+        ## STEPS
+        ## 1. and 2.
+        # DATA for methods 'import_files' and 'store_recently_imported_assets'
         self.LIST_stored_filePaths = LIST_stored_filePaths
+        self.current_directory = unreal.EditorUtilityLibrary.get_current_content_browser_path()
+        
+        ## 3.
+        # DATA for method 'insert_recent_assets_into_DICT_grouped_filepaths_config'
         self.DICT_grouped_filePaths_config = DICT_grouped_filePaths_config
 
-        # Variables for 'build_material_instances'
+        ## 4.
+        # DATA for method 'build_material_instances'
         self.DICT_all_filtered_matExpressions_textures_suffixes = DICT_all_filtered_matExpressions_textures_suffixes
         self.single_selected_material = single_selected_material
-
-
-
-        self.current_directory = unreal.EditorUtilityLibrary.get_current_content_browser_path()
-
 
 
     def import_files(self):
@@ -49,7 +50,7 @@ class BuildMaterialInstances:
 
 
     # Compares ALL assets in current browser to LIST_stored_filePaths
-    # stores matching assets into 'stored_assets' list
+    # stores matching assets into 'LIST_recently_imported_assets' list
     ##
     # This is way to only select imported assets if there are multiple assets in current content browser path
 
@@ -112,10 +113,6 @@ class BuildMaterialInstances:
             # Iterate through DICT_grouped_filePaths_config and check for matching conditions
             for group, file_list in self.DICT_grouped_filePaths_config.items():
                 for file_info in file_list:
-
-                    unreal.log_warning(f'printing file info- fileName and asset_name')
-                    print(file_info['fileName'])
-                    print(asset_name)
                     if file_info['fileName'] == asset_name:
                         # Add the asset to the file_info dictionary under 'assetData'
                         file_info['assetData'] = asset
@@ -126,7 +123,6 @@ class BuildMaterialInstances:
 
 
     def build_material_instances(self):
-
 
         # Running custom class methods
         self.import_files()

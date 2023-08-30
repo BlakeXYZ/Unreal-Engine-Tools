@@ -116,14 +116,7 @@ class my_importTextures_GUI(QtWidgets.QWidget):
                 ### calling function thats connected to AutoMI_03_Select_Tex_Files
                 #
                 self.validate_texture_files_and_build_dictionary(filePaths[0], self.LIST_stored_filePaths)
-                print("++++++++")
-                for root_group, files in self.DICT_grouped_filePaths_config.items():
-                        print(f'=== Root Group: {root_group}')
-                        for file_info in files:
-                                print(f'File Path:                  {file_info["filePath"]}')
-                                print(f'File Name:                  {file_info["fileName"]}')
-                                print(f'Suffix:                     {file_info["suffix"]}')
-                                print('-')
+
                 #
                 ###
 
