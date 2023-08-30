@@ -9,8 +9,8 @@ Provide a brief introduction or overview of what your tool accomplishes. Explain
 Explain how to install or set up your tool. Include any prerequisites or dependencies that need to be installed before using the tool. Provide step-by-step instructions if necessary.
 
 UE Project Settings
-_Activate Pythong Editor Script Plugin
-_Edit > Plugins > Scripting
+Activate Pythong Editor Script Plugin
+Edit > Plugins > Scripting
 
 ### Quick Start
 
