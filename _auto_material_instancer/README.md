@@ -4,7 +4,7 @@
 
 ## <ins>Overview</ins>
 
-Provide a brief introduction or overview of what your tool accomplishes. Explain its purpose and why someone might want to use it.
+Batch Automate Material Instances based on User selected Master Material, Param Group, and Textures. 
 ______
 ## <ins>Installation</ins>
 <details>
