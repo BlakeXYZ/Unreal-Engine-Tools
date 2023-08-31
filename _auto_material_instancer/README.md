@@ -4,7 +4,7 @@
 
 ## <ins>Overview</ins>
 
-Batch Automate Material Instances based on User selected Master Material, Param Group, and Textures. 
+Batch Automate creation of Material Instances based on User selected Master Material, Param Group, and Textures. 
 ______
 ## <ins>Installation</ins>
 <details>
