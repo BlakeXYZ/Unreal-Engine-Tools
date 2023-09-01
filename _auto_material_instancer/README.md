@@ -143,7 +143,7 @@ ____________
 2. User must use at minimum, one (1) **_Suffix Pattern_** 
    - ex: Patterns Found: '_BC' '_N', Selected Texture Files: 'Another_Skin_BC' + no '_N' File _will_ work
    <br>
-> :information_source: The following selected Texture Files will create 3 Material Instances based on 'Texture Files Group' Name (Anything before Suffix) <br>
+> :information_source: The following selected Texture Files will create 3 Material Instances based on Texture Files 'Group Name' (Anything before Suffix) <br>
 > ex: Material Instance : 'MI_My_Material_Skin_01' that intakes '_BC' and '_N'
 <p align="center">
 <img src="https://github.com/BlakeXYZ/Unreal-Engine-Python-Projects/assets/37947050/607d44aa-0940-468b-b376-b1d5e48be8aa" width="700">
