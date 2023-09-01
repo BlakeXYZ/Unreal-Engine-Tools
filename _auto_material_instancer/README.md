@@ -135,14 +135,13 @@ ____________
 </details>
 
 <details>
-<summary>Selected Texture Files Requirements</summary>
-<br>
-1. Texture File Names must contain a Suffix that matches one of the **_Suffix Patterns_** found in your Selected Master Material
-2. It is not required to fill in all **_Suffix Patterns_** (ex: Patterns Found: '_BC' '_N', Selected Texture Files: 'Skin_A_BC' and no '_N' File will work)
-<br>
-<br>
-
+<summary>Selected Texture Files Requirements</summary><br>
    
+1. Texture File Names must contain a Suffix that matches one of the **_Suffix Patterns_** found in your Selected Master Material
+   <br>
+2. It is not required to fill in all **_Suffix Patterns_** (ex: Patterns Found: '_BC' '_N', Selected Texture Files: 'Skin_A_BC' and no '_N' File will work)
+   <br>
+   <br>  
 > :information_source: The following selected Texture Files will create 3 Material Instances based on 'Texture Files Group' Name (Anything before Suffix) <br>
 > ex: Material Instance : 'My_Material_Skin_01' that intakes '_BC' and '_N'
 
