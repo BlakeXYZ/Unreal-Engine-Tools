@@ -90,10 +90,10 @@ ____________
 <details>
 <summary>Tool Vocabulary</summary>
 
-- **_ _Master Material_ _** : User Material you wish to Instance
-- **_ _Material Expression_ _** : Building blocks for creating Materials, colloquially known as 'Nodes'
-- **_ _Parameter Group_ _** : User Material Expression Group you assign to Texture2D Expressions
-- **_ _Suffix Pattern_ _** : 
+- **_Master Material_** : User Material you wish to Instance
+- **_Material Expression_** : Building blocks for creating Materials, colloquially known as 'Nodes'
+- **_Parameter Group_** : User Material Expression Group you assign to Texture2D Expressions
+- **_Suffix Pattern_** : 
 
 
 
