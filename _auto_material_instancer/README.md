@@ -116,9 +116,9 @@ ____________
 <summary>Selected Master Material Requirements</summary>
 <br>
    
-1. Your custom 'Import Parameter Group' is assigned to Texture2D Material Expressions you wish to auto fill with imported Textures. 
+1. User **_Parameter Group_** is assigned to Texture2D Material Expressions you wish to auto fill with imported Textures. 
    <br>
-2. Param2D Material Expression Texture Base must follow your custom **_Suffix Pattern_** / Naming convention.
+2. Texture2D 'Material Expression Texture Base' must follow your custom **_Suffix Pattern_** / Naming convention.
    <br>
    <br>
 
