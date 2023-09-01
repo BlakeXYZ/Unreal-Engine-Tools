@@ -89,6 +89,12 @@ ____________
 </p>
 </details>
 <details>
+<summary>Selected Master Material Example image</summary>
+<p align="center">
+<img src="https://github.com/BlakeXYZ/Unreal-Engine-Python-Projects/assets/37947050/026c831c-2ad2-4d52-8d0f-2c971f5a64ea" width="700">
+</p>
+</details>
+<details>
 <summary>Selected Texture Files Requirements</summary>
            1. Texture File Names must contain a Suffix that matches one of the SUFFIX PATTERNS found in your Selected Master Material
    <br>
