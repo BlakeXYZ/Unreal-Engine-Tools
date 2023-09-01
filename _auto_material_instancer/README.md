@@ -86,11 +86,26 @@ ______
 ____________
 
 ## <ins>Quick Start</ins>
+
+<details>
+<summary>Tool Vocabulary</summary>
+
+- **_ _Master Material_ _** : User Material you wish to Instance
+- **_ _Material Expression_ _** : Building blocks for creating Materials, colloquially known as 'Nodes'
+- **_ _Parameter Group_ _** : User Material Expression Group you assign to Texture2D Expressions
+- **_ _Suffix Pattern_ _** : 
+
+
+
+</details>
+
+
+
 <details>
 <summary>Selected Master Material Requirements</summary>
-            1. Your custom 'Import Parameter Group' is assigned to Param2D Material Expressions you wish to auto fill with imported Textures. 
+1. Your custom 'Import Parameter Group' is assigned to Param2D Material Expressions you wish to auto fill with imported Textures. 
    <br>
-            2. Param2D Material Expression Texture Base must follow your custom SUFFIX PATTERN / Naming convention.
+2. Param2D Material Expression Texture Base must follow your custom SUFFIX PATTERN / Naming convention.
    <br>
    <br>
 
@@ -100,6 +115,7 @@ ____________
 </details>
 <details>
 <summary>Selected Master Material Example image</summary>
+<br>
 <p align="center">
 <img src="https://github.com/BlakeXYZ/Unreal-Engine-Python-Projects/assets/37947050/026c831c-2ad2-4d52-8d0f-2c971f5a64ea" width="700">
 </p>
@@ -122,6 +138,8 @@ ______
    
 - **Please check Unreal Engine’s Output Log if the Tool is not working as expected.**
 - **The tool will throw ‘ValidationError’ and ‘Warning’ alerts with context-specific explanations.**
+
+Log examples:
 ```
 LogPython: Error: utils.AutoMI_01_Load_Mat.ValidationError: Please select Asset of <class "Material">
 -- Currently Selected Asset "Material_INSTANCE" is of <class 'MaterialInstanceConstant'>
