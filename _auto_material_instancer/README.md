@@ -9,13 +9,18 @@
 <h4 align="center">Batch Automate creation of Material Instances based on User selected Master Material, Param Group, and Textures.
 </h4>
 
-
 <p align="center">
    
 <img src="https://github.com/BlakeXYZ/Unreal-Engine-Python-Projects/assets/37947050/12ffa665-6fbb-4e49-ac02-c8d8681af04a" width="700">
 </p>
 
-Built with
+
+Pipeline Problem:
+
+Manually creating a Material Instance, importing new textures and slotting each texture into correct Parameter Group Texture Slots is time consuming. Especially if you have to setup many Material Instances at once. (e.g. setting up several weapon 'skin' variants) This tool solves this time consuming pipeline problem by Batch Automating Material Instances.
+
+
+Built with:
 - UE 5.1.1
 - UE embedded Python 3.9.7
 - PySide2 ([see libs](https://github.com/BlakeXYZ/Unreal-Engine-Python-Projects/tree/main/_auto_material_instancer/libs))
