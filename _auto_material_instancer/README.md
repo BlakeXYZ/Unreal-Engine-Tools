@@ -41,7 +41,7 @@ ______
 <summary>2. Download Tool</summary>
 <br>
 
-   - Download '[Unreal-Engine-Python-Projects](https://github.com/BlakeXYZ/Unreal-Engine-Python-Projects/tree/main)' Repo
+   - Download '[Unreal-Engine-Python-Projects](https://github.com/BlakeXYZ/Unreal-Engine-Python-Projects)' Repo
    - Extract _auto_material_instancer Folder 
 <p align="center">
 <img src="https://github.com/BlakeXYZ/Unreal-Engine-Python-Projects/assets/37947050/d58cfd07-b09b-479f-9301-f23240f209f2" width="700">
