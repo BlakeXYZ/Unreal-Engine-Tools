@@ -99,7 +99,8 @@ ____________
 - **_Master Material_** : User Material you wish to Instance
 - **_Material Expression_** : Building blocks for creating Materials, colloquially known as 'Nodes'
 - **_Parameter Group_** : User Material Expression Group you assign to Texture2D Expressions
-- **_Suffix Pattern_** : User Naming Convention on Textures, anything after last '_' (underscore) is stored as suffix. (ex. My_New_Texture_123abc, suffix = '_123abc')
+- **_Suffix Pattern_** : User Naming Convention on Textures, anything after last '_' (underscore) is stored as suffix.
+     - ex. My_New_Texture_123abc, suffix = '_123abc'
   
 
 > ❗ Assigning **_Parameter Groups_** and having **_Suffix Patterns_** are central to the tool.
