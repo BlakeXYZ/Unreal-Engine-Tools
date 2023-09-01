@@ -10,6 +10,11 @@ Batch Automate creation of Material Instances based on User selected Master Mate
 <img src="https://github.com/BlakeXYZ/Unreal-Engine-Python-Projects/assets/37947050/12ffa665-6fbb-4e49-ac02-c8d8681af04a" width="700">
 </p>
 
+### Built With
+- UE 5.1.1
+- UE embedded Python 3.9.7
+- PySide2 (see libs)
+
 ______
 ## <ins>Installation</ins>
 <details>
@@ -95,6 +100,32 @@ ____________
 
 ______
 ## <ins>Documentation</ins>
+<details>
+<summary>init_unreal .py</summary>
+<br>
+On Initialization we are running two important steps:
+   
+- **sys.path.append(libs_subdir)**
+   - This sets up 3rd Party Python Library Dependencies (ex: PySide2, Unreal Stylesheet)
+- **def build_menu()**
+   - This builds an easy access Menu inside our LevelEditor.MainMenu, in which we can launch our Tool.
+</details>
 
-Provide a link to more detailed documentation if it exists. This could be a link to a separate documentation file or an external website. Include information on where users can find additional resources, tutorials, or support.
+<details>
+<summary>Debugging - Output Log</summary>
+   
+- **Please check Unreal Engine’s Output Log if the Tool is not working as expected.**
+- **The tool will throw ‘ValidationError’ and ‘Warning’ alerts with context-specific explanations.**
+```
+LogPython: Error: utils.AutoMI_01_Load_Mat.ValidationError: Please select Asset of <class "Material">
+-- Currently Selected Asset "Material_INSTANCE" is of <class 'MaterialInstanceConstant'>
+```
+```
+LogPython: Warning: SKIPPING - Selected Texture File: "noMatchingSuffix_ORM" DOES NOT MATCH ANY SUFFIX PATTERNS.
+Full file path: C:/Users/blake/Pictures/Textures/noMatchingSuffix_ORM.jpg
+```
+
+</details
+______
+
 
