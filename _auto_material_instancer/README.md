@@ -100,16 +100,6 @@ ____________
 
 ______
 ## <ins>Documentation</ins>
-<details>
-<summary>init_unreal .py</summary>
-<br>
-On Initialization we are running two important steps:
-   
-- **sys.path.append(libs_subdir)**
-   - This sets up 3rd Party Python Library Dependencies (ex: PySide2, Unreal Stylesheet)
-- **def build_menu()**
-   - This builds an easy access Menu inside our LevelEditor.MainMenu, in which we can launch our Tool.
-</details>
 
 <details>
 <summary>Debugging - Output Log</summary>
@@ -125,7 +115,46 @@ LogPython: Warning: SKIPPING - Selected Texture File: "noMatchingSuffix_ORM" DOE
 Full file path: C:/Users/blake/Pictures/Textures/noMatchingSuffix_ORM.jpg
 ```
 
-</details
+</details>
+
+<details>
+<summary>Tool Constraints</summary>
+
+```
+#--- Accepted File Types
+accepted_QFileDialog_fileTypes = ['*.bmp', '*.float', '*.jpeg', '*.jpg', '*.pcx', '*.png',
+ '*.psd', '*.tga', '*.dds', '*.exr', '*.tif', '*.tiff']
+```
+```
+#--- Imports Files into current directory
+my_asset_import_data.destination_path = self.current_directory
+```
+```
+#--- Removes M_ when building Material Instances
+if single_selected_material_name.startswith('M_'):
+   single_selected_material_name = single_selected_material_name[2:]
+```
+```
+#--- Creates a Material Instance asset with a unique name based on the group name.
+mi_asset = asset_tools.create_asset(f"MI_{single_selected_material_name}_{group}", parent_folder, None, material_factory)
+```
+
+
+
+</details>
+
+
+<details>
+<summary>init_unreal .py</summary>
+<br>
+On Initialization we are running two important steps:
+   
+- **sys.path.append(libs_subdir)**
+   - This sets up 3rd Party Python Library Dependencies (ex: PySide2, Unreal Stylesheet)
+- **def build_menu()**
+   - This builds an easy access Menu inside our LevelEditor.MainMenu, in which we can launch our Tool.
+</details>
+
 ______
 
 
