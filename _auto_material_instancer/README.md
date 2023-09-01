@@ -118,7 +118,7 @@ ____________
    
 1. Your custom 'Import Parameter Group' is assigned to Texture2D Material Expressions you wish to auto fill with imported Textures. 
    <br>
-2. Param2D Material Expression Texture Base must follow your custom SUFFIX PATTERN / Naming convention.
+2. Param2D Material Expression Texture Base must follow your custom **_Suffix Pattern_** / Naming convention.
    <br>
    <br>
 
