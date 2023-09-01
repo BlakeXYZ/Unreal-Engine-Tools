@@ -143,7 +143,6 @@ ____________
 2. User must use (1) **_Suffix Pattern_** at minimum
    - ex: Patterns Found: '_BC' '_N', Selected Texture Files: 'Another_Skin_BC' + no '_N' File _will_ work
    <br>
-   <br>  
 > :information_source: The following selected Texture Files will create 3 Material Instances based on 'Texture Files Group' Name (Anything before Suffix) <br>
 > ex: Material Instance : 'MI_My_Material_Skin_01' that intakes '_BC' and '_N'
 <p align="center">
