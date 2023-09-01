@@ -17,7 +17,7 @@
 
 Pipeline Problem:
 
-Manually creating a Material Instance, importing new textures and slotting each texture into correct Parameter Group Texture Slots is time consuming. Especially if you have to setup many Material Instances at once. (e.g. setting up several weapon 'skin' variants) This tool solves this time consuming pipeline problem by Batch Automating Material Instances.
+Manually creating a Material Instance, importing new textures and slotting each texture into correct Parameter Group Texture Slots is time consuming. Especially if you have to setup many Material Instances at once. (e.g. building several weapon 'skin' variants) This tool solves this time consuming pipeline problem by Batch Automating Material Instances.
 
 
 Built with:
