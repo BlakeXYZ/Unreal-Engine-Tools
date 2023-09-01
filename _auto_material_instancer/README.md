@@ -190,8 +190,8 @@ if single_selected_material_name.startswith('M_'):
 #--- Creates a Material Instance asset with a unique name based on the group name.
 mi_asset = asset_tools.create_asset(f"MI_{single_selected_material_name}_{group}", parent_folder, None, material_factory)
 
-ex: Master Material: 'My_Material' + Texture: 'Skin_01_BC' 
-    creates Material Instance named: 'MI_My_Material_Skin_01'
+#   ex: Master Material: 'My_Material' + Texture: 'Skin_01_BC' 
+#       creates Material Instance named: 'MI_My_Material_Skin_01'
 ```
 
 
