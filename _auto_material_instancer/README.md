@@ -50,7 +50,8 @@ ______
 <details>
 <summary>3. Add "Auto Material Instancer" Tool into UE Project</summary>
 <br>
-
+   
+> ❗ Do not drag and drop Tool directly into UE Content Browser, use Explorer
    - Create new Folder inside /All/Content named Python
    - Right click Python Folder and 'Show in Explorer'
    - Move Tool into /Python File Explorer directory
