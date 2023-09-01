@@ -13,7 +13,7 @@ Batch Automate creation of Material Instances based on User selected Master Mate
 Built with
 - UE 5.1.1
 - UE embedded Python 3.9.7
-- PySide2 (see libs)
+- PySide2 ([see libs](https://github.com/BlakeXYZ/Unreal-Engine-Python-Projects/tree/main/_auto_material_instancer/libs))
 
 ______
 ## <ins>Installation</ins>
