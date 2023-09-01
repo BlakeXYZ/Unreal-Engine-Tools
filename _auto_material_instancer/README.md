@@ -141,13 +141,13 @@ ____________
 1. Texture File Names must contain a Suffix that matches one of the **_Suffix Patterns_** found in your Selected Master Material
    <br>
 2. User must use (1) **_Suffix Pattern_** at minimum
-   - ex: Patterns Found: '_BC' '_N', Selected Texture Files: 'Skin_A_BC' + no '_N' File _will_ work
+   - ex: Patterns Found: '_BC' '_N', Selected Texture Files: 'Another_Skin_BC' + no '_N' File _will_ work
    <br>
    <br>  
 > :information_source: The following selected Texture Files will create 3 Material Instances based on 'Texture Files Group' Name (Anything before Suffix) <br>
 > ex: Material Instance : 'MI_My_Material_Skin_01' that intakes '_BC' and '_N'
 <p align="center">
-<img src="https://github.com/BlakeXYZ/Unreal-Engine-Python-Projects/assets/37947050/abbbfd15-4c0a-4267-8ece-8158bce98c02" width="700">
+<img src="https://github.com/BlakeXYZ/Unreal-Engine-Python-Projects/assets/37947050/607d44aa-0940-468b-b376-b1d5e48be8aa" width="700">
 </p>
 <br>
 </details>
