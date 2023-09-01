@@ -144,9 +144,6 @@ ____________
    <br>  
 > :information_source: The following selected Texture Files will create 3 Material Instances based on 'Texture Files Group' Name (Anything before Suffix) <br>
 > ex: Material Instance : 'My_Material_Skin_01' that intakes '_BC' and '_N'
-
-   <br>
-   <br>
 <p align="center">
 <img src="https://github.com/BlakeXYZ/Unreal-Engine-Python-Projects/assets/37947050/abbbfd15-4c0a-4267-8ece-8158bce98c02" width="700">
 </p>
