@@ -29,6 +29,7 @@ ______
 ## <ins>Installation</ins>
 <details>
 <summary>1. Activate Python Editor Script Plugin</summary>
+<br>
    
    - Edit > Plugins > Scripting
    - Prompted to RESTART UE, please do so
@@ -38,6 +39,7 @@ ______
 </details>
 <details>
 <summary>2. Download Tool</summary>
+<br>
 
    - Download 'Unreal-Engine-Python-Projects' Repo
    - Extract _auto_material_instancer Folder 
@@ -47,6 +49,7 @@ ______
 </details>
 <details>
 <summary>3. Add "Auto Material Instancer" Tool into UE Project</summary>
+<br>
 
    - Create new Folder inside /All/Content named Python
    - Right click Python Folder and 'Show in Explorer'
@@ -68,6 +71,7 @@ ______
 </details>
 <details>
 <summary>4. Add Additional PYTHONPATHS</summary>
+<br>
    
    - Edit > Project Settings > Python
    - Add '_auto_material_instancer' folder as Additional Path
@@ -89,11 +93,16 @@ ____________
 
 <details>
 <summary>Tool Vocabulary</summary>
-
+<br>
+   
 - **_Master Material_** : User Material you wish to Instance
 - **_Material Expression_** : Building blocks for creating Materials, colloquially known as 'Nodes'
 - **_Parameter Group_** : User Material Expression Group you assign to Texture2D Expressions
-- **_Suffix Pattern_** : 
+- **_Suffix Pattern_** : User Naming Convention on Textures, anything after last '_' (underscore) is stored as the suffix. (ex. My_New_Texture_123abc, suffix = '_123abc')
+  
+
+> ❗ Assigning **_Parameter Groups_** and having **_Suffix Patterns_** are central to the tool.
+<br>
 
 
 
@@ -103,6 +112,8 @@ ____________
 
 <details>
 <summary>Selected Master Material Requirements</summary>
+<br>
+   
 1. Your custom 'Import Parameter Group' is assigned to Param2D Material Expressions you wish to auto fill with imported Textures. 
    <br>
 2. Param2D Material Expression Texture Base must follow your custom SUFFIX PATTERN / Naming convention.
@@ -112,6 +123,7 @@ ____________
 <p align="center">
 <img src="https://github.com/BlakeXYZ/Unreal-Engine-Python-Projects/assets/37947050/dbdd326b-1a0b-4897-9eec-1e00bcbe36cb" width="700">
 </p>
+<br>
 </details>
 <details>
 <summary>Selected Master Material Example image</summary>
@@ -120,14 +132,17 @@ ____________
 <img src="https://github.com/BlakeXYZ/Unreal-Engine-Python-Projects/assets/37947050/026c831c-2ad2-4d52-8d0f-2c971f5a64ea" width="700">
 </p>
 </details>
+
 <details>
 <summary>Selected Texture Files Requirements</summary>
+<br>
            1. Texture File Names must contain a Suffix that matches one of the SUFFIX PATTERNS found in your Selected Master Material
    <br>
    <br>
 <p align="center">
 <img src="https://github.com/BlakeXYZ/Unreal-Engine-Python-Projects/assets/37947050/abbbfd15-4c0a-4267-8ece-8158bce98c02" width="700">
 </p>
+<br>
 </details>
 
 ______
@@ -135,6 +150,7 @@ ______
 
 <details>
 <summary>Debugging - Output Log</summary>
+<br>
    
 - **Please check Unreal Engine’s Output Log if the Tool is not working as expected.**
 - **The tool will throw ‘ValidationError’ and ‘Warning’ alerts with context-specific explanations.**
@@ -153,6 +169,7 @@ Full file path: C:/Users/blake/Pictures/Textures/noMatchingSuffix_ORM.jpg
 
 <details>
 <summary>Tool Constraints</summary>
+<br>
 
 ```
 #--- Accepted File Types
@@ -181,6 +198,7 @@ mi_asset = asset_tools.create_asset(f"MI_{single_selected_material_name}_{group}
 <details>
 <summary>init_unreal .py</summary>
 <br>
+   
 On Initialization we are running two important steps:
    
 - **sys.path.append(libs_subdir)**
