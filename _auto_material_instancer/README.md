@@ -71,8 +71,27 @@ ______
 ____________
 
 ## <ins>Quick Start</ins>
+<details>
+<summary>Selected Master Material Requirements</summary>
+            1. Your custom 'Import Parameter Group' is assigned to Param2D Material Expressions you wish to auto fill with imported Textures. 
+   <br>
+            2. Param2D Material Expression Texture Base must follow your custom SUFFIX PATTERN / Naming convention.
+   <br>
+   <br>
 
-Describe how to use your tool. Include examples or code snippets to illustrate common use cases. Explain any command-line options, configuration settings, or parameters that users need to be aware of.
+<p align="center">
+<img src="https://github.com/BlakeXYZ/Unreal-Engine-Python-Projects/assets/37947050/dbdd326b-1a0b-4897-9eec-1e00bcbe36cb" width="700">
+</p>
+</details>
+<details>
+<summary>Selected Texture Files Requirements</summary>
+           1. Texture File Names must contain a Suffix that matches one of the SUFFIX PATTERNS found in your Selected Master Material
+   <br>
+   <br>
+<p align="center">
+<img src="https://github.com/BlakeXYZ/Unreal-Engine-Python-Projects/assets/37947050/abbbfd15-4c0a-4267-8ece-8158bce98c02" width="700">
+</p>
+</details>
 
 ______
 ## <ins>Documentation</ins>
