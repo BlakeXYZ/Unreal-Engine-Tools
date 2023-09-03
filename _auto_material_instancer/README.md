@@ -6,8 +6,8 @@
 
 
 
-<h4 align="center">Batch Automate creation of Material Instances based on User selected Master Material, Param Group, and Textures.
-</h4>
+<div align="center">Batch Automate creation of Material Instances based on User selected Master Material, Param Group, and Textures.
+</div>
 
 <p align="center">
    
@@ -15,12 +15,12 @@
 </p>
 
 
-Pipeline Problem:
+#### Pipeline Problem:
 
 - Manually creating a Material Instance, importing new textures and slotting each texture into correct Parameter Group Texture Slots is time consuming. Especially if you have to setup many Material Instances at once. (e.g. building several weapon 'skin' variants) This tool solves this time consuming pipeline problem by Batch Automating the creation of Material Instances.
 
 
-Built with:
+#### Built with:
 - UE 5.1.1
 - UE embedded Python 3.9.7
 - PySide2 [see Libs](https://github.com/BlakeXYZ/Unreal-Engine-Python-Projects/tree/main/_auto_material_instancer/libs) <sub>(hacky solution to distributing 3rd party libs, avoids versioning conflicts that can come with init_unreal.py pip install workflow)</sub>
@@ -32,7 +32,7 @@ Built with:
 ______
 ## <ins>Installation</ins>
 <details open>
-<summary>1. Activate Python Editor Script Plugin</summary>
+<summary><h4>1. Activate Python Editor Script Plugin</h4></summary>
 <br>
    
    - Edit > Plugins > Scripting
@@ -85,7 +85,7 @@ ______
 <img src="https://github.com/BlakeXYZ/Unreal-Engine-Python-Projects/assets/37947050/fb5a49d7-8d01-401b-b374-dde9c0c86146" width="700">
 </p>
 
-#### Upon Restart, your Main Menu should now contain a new Item which launches the _auto_material_instancer tool!
+**Upon Restart, your Main Menu should now contain a new Item which launches the _auto_material_instancer tool!**
 
 <p align="center">
 <img src="https://github.com/BlakeXYZ/Unreal-Engine-Python-Projects/assets/37947050/c7d07bac-3a87-44b9-a9e1-884728bee34d" width="700">
