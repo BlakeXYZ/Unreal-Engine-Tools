@@ -8,6 +8,7 @@
 
 <div align="center">Batch Automate creation of Material Instances based on User selected Master Material, Param Group, and Textures.
 </div>
+<br>
 
 <p align="center">
    
@@ -42,7 +43,7 @@ ______
 </p>
 </details>
 <details open>
-<summary>2. Download Tool</summary>
+<summary><h4>2. Download Tool</h4></summary>
 <br>
 
    - Download '[Unreal-Engine-Python-Projects](https://github.com/BlakeXYZ/Unreal-Engine-Python-Projects)' Repo
@@ -52,7 +53,7 @@ ______
 </p>
 </details>
 <details open>
-<summary>3. Add "Auto Material Instancer" Tool into UE Project</summary>
+<summary><h4>3. Add "Auto Material Instancer" Tool into UE Project</h4></summary>
 <br>
    
 > ❗ Do not drag and drop Tool directly into UE Content Browser, use Explorer
@@ -75,7 +76,7 @@ ______
 </p>
 </details>
 <details open>
-<summary>4. Add Additional PYTHONPATHS</summary>
+<summary><h4>4. Add Additional PYTHONPATHS</h4></summary>
 <br>
    
    - Edit > Project Settings > Python
@@ -97,7 +98,7 @@ ____________
 ## <ins>Quick Start</ins>
 
 <details open>
-<summary>Tool Vocabulary</summary>
+<summary><h4>Tool Vocabulary</h4></summary>
 <br>
    
 - **_Master Material_** : User Material you wish to Instance
@@ -117,7 +118,7 @@ ____________
 
 
 <details open>
-<summary>Selected Master Material Requirements</summary>
+<summary><h4>Selected Master Material Requirements</h4></summary>
 <br>
    
 1. User **_Parameter Group_** is assigned to Texture2D Material Expressions you wish to auto fill with imported Textures. 
@@ -132,7 +133,7 @@ ____________
 <br>
 </details>
 <details open>
-<summary>Selected Master Material Example image</summary>
+<summary><h4>Selected Master Material Example image</h4></summary>
 <br>
 <p align="center">
 <img src="https://github.com/BlakeXYZ/Unreal-Engine-Python-Projects/assets/37947050/026c831c-2ad2-4d52-8d0f-2c971f5a64ea" width="700">
@@ -140,7 +141,7 @@ ____________
 </details>
 
 <details open>
-<summary>Selected Texture Files Requirements</summary><br>
+<summary><h4>Selected Texture Files Requirements</h4></summary><br>
    
 1. Texture File Names must contain a Suffix that matches one of the **_Suffix Patterns_** found in your Selected Master Material
    <br>
@@ -159,7 +160,7 @@ ______
 ## <ins>Documentation</ins>
 
 <details open> 
-<summary>Debugging - Output Log</summary>
+<summary><h4>Debugging - Output Log</h4></summary>
 <br>
    
 - **Please check Unreal Engine’s Output Log if the Tool is not working as expected.**
@@ -178,7 +179,7 @@ Full file path: C:/Users/blake/Pictures/Textures/noMatchingSuffix_ORM.jpg
 </details>
 
 <details open>
-<summary>Tool Constraints</summary>
+<summary><h4>Tool Constraints</h4></summary>
 <br>
 
 ```
@@ -209,7 +210,7 @@ mi_asset = asset_tools.create_asset(f"MI_{single_selected_material_name}_{group}
 
 
 <details open>
-<summary>init_unreal .py</summary>
+<summary><h4>init_unreal .py</h4></summary>
 <br>
    
 On Initialization we are running two important steps:
