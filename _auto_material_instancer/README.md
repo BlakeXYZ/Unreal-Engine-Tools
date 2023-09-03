@@ -31,7 +31,7 @@ Built with:
 
 ______
 ## <ins>Installation</ins>
-<details>
+<details open>
 <summary>1. Activate Python Editor Script Plugin</summary>
 <br>
    
@@ -41,7 +41,7 @@ ______
 <img src="https://github.com/BlakeXYZ/Unreal-Engine-Python-Projects/assets/37947050/facf1038-dcdf-443d-aa9d-2d5dc3fdbb8c" width="700">
 </p>
 </details>
-<details>
+<details open>
 <summary>2. Download Tool</summary>
 <br>
 
@@ -51,7 +51,7 @@ ______
 <img src="https://github.com/BlakeXYZ/Unreal-Engine-Python-Projects/assets/37947050/d58cfd07-b09b-479f-9301-f23240f209f2" width="700">
 </p>
 </details>
-<details>
+<details open>
 <summary>3. Add "Auto Material Instancer" Tool into UE Project</summary>
 <br>
    
@@ -74,7 +74,7 @@ ______
 <img src="https://github.com/BlakeXYZ/Unreal-Engine-Python-Projects/assets/37947050/3e9a674d-3910-464f-a52a-1431f9cddce9" width="400">
 </p>
 </details>
-<details>
+<details open>
 <summary>4. Add Additional PYTHONPATHS</summary>
 <br>
    
@@ -96,7 +96,7 @@ ____________
 
 ## <ins>Quick Start</ins>
 
-<details>
+<details open>
 <summary>Tool Vocabulary</summary>
 <br>
    
@@ -116,7 +116,7 @@ ____________
 
 
 
-<details>
+<details open>
 <summary>Selected Master Material Requirements</summary>
 <br>
    
@@ -131,7 +131,7 @@ ____________
 </p>
 <br>
 </details>
-<details>
+<details open>
 <summary>Selected Master Material Example image</summary>
 <br>
 <p align="center">
@@ -139,7 +139,7 @@ ____________
 </p>
 </details>
 
-<details>
+<details open>
 <summary>Selected Texture Files Requirements</summary><br>
    
 1. Texture File Names must contain a Suffix that matches one of the **_Suffix Patterns_** found in your Selected Master Material
@@ -158,7 +158,7 @@ ____________
 ______
 ## <ins>Documentation</ins>
 
-<details>
+<details open> 
 <summary>Debugging - Output Log</summary>
 <br>
    
@@ -177,7 +177,7 @@ Full file path: C:/Users/blake/Pictures/Textures/noMatchingSuffix_ORM.jpg
 
 </details>
 
-<details>
+<details open>
 <summary>Tool Constraints</summary>
 <br>
 
@@ -208,7 +208,7 @@ mi_asset = asset_tools.create_asset(f"MI_{single_selected_material_name}_{group}
 </details>
 
 
-<details>
+<details open>
 <summary>init_unreal .py</summary>
 <br>
    
