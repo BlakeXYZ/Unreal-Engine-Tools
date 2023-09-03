@@ -6,7 +6,7 @@
 
 [Auto Material Instancer](https://github.com/BlakeXYZ/Unreal-Engine-Python-Projects/blob/main/_auto_material_instancer/README.md) - Batch Automate creation of Material Instances based on User selected Master Material, Param Group, and Textures.
 
-<details>
+<details open>
 <summary>Preview</summary>
 <br>
 
@@ -19,7 +19,7 @@
 ---
 
 [File Organizer](https://github.com/BlakeXYZ/Unreal-Engine-Python-Projects/blob/main/_file_organizer/file_organizer.py) - (GUI WIP) Auto builds Subdirectory Folders and inserts Content Browser Assets in their respective folder
-<details>
+<details open>
 <summary>Preview</summary>
 <br>
 
