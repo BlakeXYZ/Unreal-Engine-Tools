@@ -23,7 +23,11 @@ Pipeline Problem:
 Built with:
 - UE 5.1.1
 - UE embedded Python 3.9.7
-- PySide2 ([see libs](https://github.com/BlakeXYZ/Unreal-Engine-Python-Projects/tree/main/_auto_material_instancer/libs))
+- PySide2 [see Libs](https://github.com/BlakeXYZ/Unreal-Engine-Python-Projects/tree/main/_auto_material_instancer/libs) <sub>(Hacky solution to distributing 3rd party libs, avoids versioning conflict that comes with init_unreal.py pip install workflow.)</sub>
+
+
+
+
 
 ______
 ## <ins>Installation</ins>
