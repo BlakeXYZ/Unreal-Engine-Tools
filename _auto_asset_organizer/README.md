@@ -1,30 +1,29 @@
 <p align="center">
-<img src="https://github.com/BlakeXYZ/Unreal-Engine-Python-Projects/assets/37947050/5cc0c648-8982-4adc-93f1-49bd91ee1265">
+<img src="https://github.com/BlakeXYZ/Unreal-Engine-Tools/assets/37947050/06b00649-f1cb-4519-8c07-4eae4cbeaa14">
 </p>
 
 ## <ins>Overview</ins>
 
 
 
-<div align="center">Batch Automate creation of Material Instances based on User selected Master Material, Param Group, and Textures.
+<div align="center">Batch Automate moving of Assets into new Folders based on User selected Assets and User input Folder names.
 </div>
 <br>
 
 <p align="center">
    
-<img src="https://github.com/BlakeXYZ/Unreal-Engine-Python-Projects/assets/37947050/12ffa665-6fbb-4e49-ac02-c8d8681af04a" width="700">
+<img src="https://github.com/BlakeXYZ/Unreal-Engine-Tools/assets/37947050/2f0ccaa9-be51-4b83-b4d6-8cdfcd959654" width="700">
 </p>
 
 
 #### Pipeline Problem:
 
-- Manually creating a Material Instance, importing new textures and slotting each texture into correct Parameter Group Texture Slots is time consuming. Especially if you have to setup many Material Instances at once. (e.g. building several weapon 'skin' variants) This tool solves this time consuming pipeline problem by Batch Automating the creation of Material Instances.
+- Manually organizing the Content Browser is a tedious task and as a project's asset library grows, organization is vital to keeping you and your team's sanity. Creating Folder names one by one and dragging and dropping uniquely selected assets into their respective folders is time consuming. This tool solves this pipeline problem by Batch Automating the creation of Folders and the moving of Selected Assets.
 
 
 #### Built with:
 - UE 5.1.1
-- UE embedded Python 3.9.7
-- PySide2 [see Libs](https://github.com/BlakeXYZ/Unreal-Engine-Python-Projects/tree/main/_auto_material_instancer/libs) <sub>(hacky solution to distributing 3rd party libs, avoids versioning conflicts that can come with init_unreal.py pip install workflow)</sub>
+- UE Editor Utility Widgets + Blueprints
 
 
 
@@ -33,46 +32,23 @@
 ______
 ## <ins>Installation</ins>
 <details open>
-<summary><h4>1. Activate Python Editor Script Plugin</h4></summary>
-<br>
-   
-   - Edit > Plugins > Scripting
-   - Prompted to RESTART UE, please do so
-<p align="center">
-<img src="https://github.com/BlakeXYZ/Unreal-Engine-Python-Projects/assets/37947050/facf1038-dcdf-443d-aa9d-2d5dc3fdbb8c" width="700">
-</p>
-</details>
-<details open>
-<summary><h4>2. Download Tool</h4></summary>
+<summary><h4>1. Download Tool</h4></summary>
 <br>
 
    - Download '[Unreal-Engine-Python-Projects](https://github.com/BlakeXYZ/Unreal-Engine-Python-Projects)' Repo
-   - Extract _auto_material_instancer Folder 
+   - Extract _auto_asset_organizer Folder 
 <p align="center">
 <img src="https://github.com/BlakeXYZ/Unreal-Engine-Python-Projects/assets/37947050/d58cfd07-b09b-479f-9301-f23240f209f2" width="700">
 </p>
 </details>
 <details open>
-<summary><h4>3. Add "Auto Material Instancer" Tool into UE Project</h4></summary>
+<summary><h4>3. Add "Auto Asset Organizer" Tool into UE Project</h4></summary>
 <br>
    
-> ❗ Do not drag and drop Tool directly into UE Content Browser, use Explorer
-   - Create new Folder inside /All/Content named Python
-   - Right click Python Folder and 'Show in Explorer'
-   - Move Tool into /Python File Explorer directory
-   - 'Import' changes
-   - 'Yes' import options 
+   - Create
 <p align="center">
 <img src="https://github.com/BlakeXYZ/Unreal-Engine-Python-Projects/assets/37947050/1bdbf43e-3cf7-4dce-9fb5-c573a338d6eb" width="400">
 <br>
-<br>
-<img src="https://github.com/BlakeXYZ/Unreal-Engine-Python-Projects/assets/37947050/bcc4b0b9-fb8b-48e2-8b39-8833e569c3e6" width="700">
-<br>
-<br>
-<img src="https://github.com/BlakeXYZ/Unreal-Engine-Python-Projects/assets/37947050/bd046b38-cfb1-4f61-bea9-352e43346638" width="400">
-<br>
-<br>
-<img src="https://github.com/BlakeXYZ/Unreal-Engine-Python-Projects/assets/37947050/3e9a674d-3910-464f-a52a-1431f9cddce9" width="400">
 </p>
 </details>
 <details open>
