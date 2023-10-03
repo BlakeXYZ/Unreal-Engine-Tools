@@ -20,7 +20,7 @@
 <img src="https://github.com/BlakeXYZ/Unreal-Engine-Tools/assets/37947050/06b00649-f1cb-4519-8c07-4eae4cbeaa14">
 </p>
 
-[Auto Asset Organizer](https://github.com/BlakeXYZ/Unreal-Engine-Tools/tree/main/_auto_asset_organizer) - (GUI WIP) Auto builds Subdirectory Folders and inserts Content Browser Assets in their respective folder
+[Auto Asset Organizer](https://github.com/BlakeXYZ/Unreal-Engine-Tools/tree/main/_auto_asset_organizer) Batch organizes Assets into new Folders based on User Selected Assets and User Input Folder names.
 <details open>
 <summary>Python Version Preview</summary>
 <br>
