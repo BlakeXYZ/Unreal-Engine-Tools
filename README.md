@@ -1,5 +1,3 @@
-# Unreal-Engine-Python-Projects
----
 <p align="center">
 <img src="https://github.com/BlakeXYZ/Unreal-Engine-Python-Projects/assets/37947050/5cc0c648-8982-4adc-93f1-49bd91ee1265">
 </p>
