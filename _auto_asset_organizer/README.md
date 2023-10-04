@@ -69,18 +69,26 @@ ____________
 <details open>
 <summary><h4>Button - List Selected Asset's Class Type</h4></summary>
 <br>
-<p align="center">
-<img src="https://github.com/BlakeXYZ/Unreal-Engine-Tools/assets/37947050/7e6c3711-f932-4cfa-a2c1-1976c041513a" width="400">
-</p>
-
+   
 - Click Button after selecting Assets inside Content Browser you wish to Batch Automate organizing into Folders
 - Input Folder Names for each Class Type you have selected
+  
+   
 <p align="center">
-<img src="https://github.com/BlakeXYZ/Unreal-Engine-Tools/assets/37947050/4f909fd3-0172-4ee1-8204-5b832a37581f" width="400">
+<img src="https://github.com/BlakeXYZ/Unreal-Engine-Tools/assets/37947050/7e6c3711-f932-4cfa-a2c1-1976c041513a" width="500">
 </p>
 <p align="center">
-<img src="https://github.com/BlakeXYZ/Unreal-Engine-Tools/assets/37947050/c5a043ec-6886-4c79-bb5f-ce8e4ed7b4ab" width="400">
+<img src="https://github.com/BlakeXYZ/Unreal-Engine-Tools/assets/37947050/4f909fd3-0172-4ee1-8204-5b832a37581f" width="500">
 </p>
+<p align="center">
+<img src="https://github.com/BlakeXYZ/Unreal-Engine-Tools/assets/37947050/c5a043ec-6886-4c79-bb5f-ce8e4ed7b4ab" width="500">
+</p>
+
+> :information_source: Add Sub-Folders using '/' in string (ex: child/subchild)
+<p align="center">
+<img src="https://github.com/BlakeXYZ/Unreal-Engine-Tools/assets/37947050/5ebd7caf-7598-4dbc-b796-f9c3dadc9bf8" width="700">
+</p>
+
 </details>
 
 
@@ -91,10 +99,10 @@ ____________
    
 - Click Button to Batch Automate the Folder creation and organization of Assets
 <p align="center">
-<img src="https://github.com/BlakeXYZ/Unreal-Engine-Tools/assets/37947050/00921bb7-3955-419e-9d48-22fd088ab9b9" width="400">
+<img src="https://github.com/BlakeXYZ/Unreal-Engine-Tools/assets/37947050/00921bb7-3955-419e-9d48-22fd088ab9b9" width="500">
 </p>
 <p align="center">
-<img src="https://github.com/BlakeXYZ/Unreal-Engine-Tools/assets/37947050/8043880b-d8d9-4ce6-938c-6a340db039f5" width="400">
+<img src="https://github.com/BlakeXYZ/Unreal-Engine-Tools/assets/37947050/8043880b-d8d9-4ce6-938c-6a340db039f5" width="500">
 </p>
 </details>
 <details open>
@@ -104,7 +112,7 @@ ____________
 - Provides the user context clues during tool usage, prints Validation Errors and Successful Automation Loops
 
 <p align="center">
-<img src="https://github.com/BlakeXYZ/Unreal-Engine-Tools/assets/37947050/249ae67c-a0b4-43ac-9fca-e78e8580aa5b" width="400">
+<img src="https://github.com/BlakeXYZ/Unreal-Engine-Tools/assets/37947050/249ae67c-a0b4-43ac-9fca-e78e8580aa5b" width="500">
 </p>
 
 
