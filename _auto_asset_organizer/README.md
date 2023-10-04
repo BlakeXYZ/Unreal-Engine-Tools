@@ -18,7 +18,7 @@
 
 #### Pipeline Problem:
 
-- Manually organizing the Content Browser is a tedious task and as a project's asset library grows, organization is vital to keeping you and your team's sanity. Creating Folder names one by one and dragging and dropping uniquely selected assets into their respective folders is time consuming. This tool solves this pipeline problem by Batch Automating the creation of Folders and the moving of Selected Assets. If Folder Name matches a pre-existing Folder name, assets will move into the pre-existing Folder.
+- Manually organizing the Content Browser is a tedious task and as a project's asset library grows, organization is vital to keeping you and your team's sanity. Creating Folder names one by one and dragging and dropping uniquely selected assets into their respective folders is time consuming. This tool solves this pipeline problem by Batch Automating the creation of Folders and the moving of Selected Assets. If user input Folder Name matches a pre-existing Folder name, assets will move into the pre-existing Folder.
 
 
 #### Built with:
