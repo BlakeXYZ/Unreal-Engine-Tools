@@ -81,11 +81,6 @@ ____________
 <p align="center">
 <img src="https://github.com/BlakeXYZ/Unreal-Engine-Tools/assets/37947050/c5a043ec-6886-4c79-bb5f-ce8e4ed7b4ab" width="400">
 </p>
-
-
-
-
-
 </details>
 
 
@@ -101,9 +96,6 @@ ____________
 <p align="center">
 <img src="https://github.com/BlakeXYZ/Unreal-Engine-Tools/assets/37947050/8043880b-d8d9-4ce6-938c-6a340db039f5" width="400">
 </p>
-
-
-<br>
 </details>
 <details open>
 <summary><h4>Console Log</h4></summary>
