@@ -67,18 +67,22 @@ ____________
 ## <ins>Quick Start</ins>
 
 <details open>
-<summary><h4>Tool Vocabulary</h4></summary>
+<summary><h4>Button - List Selected Asset's Class Type</h4></summary>
 <br>
-   
-- **_Master Material_** : User Material you wish to Instance
-- **_Material Expression_** : Building blocks for creating Materials, colloquially known as 'Nodes'
-- **_Parameter Group_** : User Material Expression Group you assign to Texture2D Expressions
-- **_Suffix Pattern_** : User Naming Convention on Textures, anything after last '_' (underscore) is stored as suffix.
-     - ex: Some_Texture_123abc, suffix = '_123abc'
-  
+<p align="center">
+<img src="https://github.com/BlakeXYZ/Unreal-Engine-Tools/assets/37947050/7e6c3711-f932-4cfa-a2c1-1976c041513a" width="400">
+</p>
 
-> ❗ Assigning **_Parameter Groups_** and having **_Suffix Patterns_** are central to the tool.
-<br>
+- Click Button after selecting Assets inside Content Browser you wish to Batch Automate organizing into Folders
+- Input Folder Names for each Class Type you have selected
+<p align="center">
+<img src="https://github.com/BlakeXYZ/Unreal-Engine-Tools/assets/37947050/4f909fd3-0172-4ee1-8204-5b832a37581f" width="400">
+</p>
+<p align="center">
+<img src="https://github.com/BlakeXYZ/Unreal-Engine-Tools/assets/37947050/c5a043ec-6886-4c79-bb5f-ce8e4ed7b4ab" width="400">
+</p>
+
+
 
 
 
@@ -87,99 +91,40 @@ ____________
 
 
 <details open>
-<summary><h4>Selected Master Material Requirements</h4></summary>
+<summary><h4>Button - Build Folders & Organize Assets</h4></summary>
 <br>
    
-1. User **_Parameter Group_** is assigned to Texture2D Material Expressions you wish to auto fill with imported Textures. 
-   <br>
-2. Texture2D 'Material Expression Texture Base' must follow your custom **_Suffix Pattern_** / Naming convention.
-   <br>
-   <br>
-
+- Click Button to Batch Automate the Folder creation and organization of Assets
 <p align="center">
-<img src="https://github.com/BlakeXYZ/Unreal-Engine-Python-Projects/assets/37947050/dbdd326b-1a0b-4897-9eec-1e00bcbe36cb" width="700">
+<img src="https://github.com/BlakeXYZ/Unreal-Engine-Tools/assets/37947050/00921bb7-3955-419e-9d48-22fd088ab9b9" width="400">
 </p>
+<p align="center">
+<img src="https://github.com/BlakeXYZ/Unreal-Engine-Tools/assets/37947050/8043880b-d8d9-4ce6-938c-6a340db039f5" width="400">
+</p>
+
+
 <br>
 </details>
 <details open>
-<summary><h4>Selected Master Material Example image</h4></summary>
+<summary><h4>Console Log</h4></summary>
 <br>
-<p align="center">
-<img src="https://github.com/BlakeXYZ/Unreal-Engine-Python-Projects/assets/37947050/026c831c-2ad2-4d52-8d0f-2c971f5a64ea" width="700">
-</p>
-</details>
-
-<details open>
-<summary><h4>Selected Texture Files Requirements</h4></summary><br>
    
-1. Texture File Names must contain a Suffix that matches one of the **_Suffix Patterns_** found in your Selected Master Material
-   <br>
-2. User must use at minimum, one (1) **_Suffix Pattern_** 
-   - ex: Patterns Found: '_BC' '_N', Selected Texture Files: 'Another_Skin_BC' + no '_N' File _will_ work
-   <br>
-> :information_source: The following selected Texture Files will create 3 Material Instances based on Texture Files 'Group Name' (Anything before Suffix) <br>
-> ex: Material Instance : 'MI_My_Material_Skin_01' that intakes '_BC' and '_N'
+- Provides the user context clues to the tool workflow, prints Validation Errors and Successful Automation Loops
+
 <p align="center">
-<img src="https://github.com/BlakeXYZ/Unreal-Engine-Python-Projects/assets/37947050/607d44aa-0940-468b-b376-b1d5e48be8aa" width="700">
+<img src="https://github.com/BlakeXYZ/Unreal-Engine-Tools/assets/37947050/249ae67c-a0b4-43ac-9fca-e78e8580aa5b" width="400">
 </p>
+
+
 <br>
+
 </details>
 
 ______
 ## <ins>Documentation</ins>
 
-<details open> 
-<summary><h4>Debugging - Output Log</h4></summary>
-<br>
-   
-- **Please check Unreal Engine’s Output Log if the Tool is not working as expected.**
-- **The tool will throw ‘ValidationError’ and ‘Warning’ alerts with context-specific explanations.**
-
-Log examples:
-```
-LogPython: Error: utils.AutoMI_01_Load_Mat.ValidationError: Please select Asset of <class "Material">
--- Currently Selected Asset "Material_INSTANCE" is of <class 'MaterialInstanceConstant'>
-```
-```
-LogPython: Warning: SKIPPING - Selected Texture File: "noMatchingSuffix_ORM" DOES NOT MATCH ANY SUFFIX PATTERNS.
-Full file path: C:/Users/blake/Pictures/Textures/noMatchingSuffix_ORM.jpg
-```
-
-</details>
-
 <details open>
-<summary><h4>Tool Constraints</h4></summary>
-<br>
-
-```
-#--- Accepted File Types
-accepted_QFileDialog_fileTypes = ['*.bmp', '*.float', '*.jpeg', '*.jpg', '*.pcx', '*.png',
- '*.psd', '*.tga', '*.dds', '*.exr', '*.tif', '*.tiff']
-```
-```
-#--- Imports Files into current directory
-my_asset_import_data.destination_path = self.current_directory
-```
-```
-#--- Removes M_ when building Material Instances
-if single_selected_material_name.startswith('M_'):
-   single_selected_material_name = single_selected_material_name[2:]
-```
-```
-#--- Creates a Material Instance asset with a unique name based on the group name.
-mi_asset = asset_tools.create_asset(f"MI_{single_selected_material_name}_{group}", parent_folder, None, material_factory)
-
-#   ex: Master Material: 'My_Material' + Texture: 'Skin_01_BC' 
-#       creates Material Instance named: 'MI_My_Material_Skin_01'
-```
-
-
-
-</details>
-
-
-<details open>
-<summary><h4>init_unreal .py</h4></summary>
+<summary><h4>Validation Errors</h4></summary>
 <br>
    
 On Initialization we are running two important steps:
