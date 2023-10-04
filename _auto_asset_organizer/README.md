@@ -109,7 +109,7 @@ ____________
 <summary><h4>Console Log</h4></summary>
 <br>
    
-- Provides the user context clues to the tool workflow, prints Validation Errors and Successful Automation Loops
+- Provides the user context clues during tool usage, prints Validation Errors and Successful Automation Loops
 
 <p align="center">
 <img src="https://github.com/BlakeXYZ/Unreal-Engine-Tools/assets/37947050/249ae67c-a0b4-43ac-9fca-e78e8580aa5b" width="400">
