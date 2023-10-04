@@ -18,7 +18,7 @@
 
 #### Pipeline Problem:
 
-- Manually organizing the Content Browser is a tedious task and as a project's asset library grows, organization is vital to keeping you and your team's sanity. Creating Folder names one by one and dragging and dropping uniquely selected assets into their respective folders is time consuming. This tool solves this pipeline problem by Batch Automating the creation of Folders and the moving of Selected Assets.
+- Manually organizing the Content Browser is a tedious task and as a project's asset library grows, organization is vital to keeping you and your team's sanity. Creating Folder names one by one and dragging and dropping uniquely selected assets into their respective folders is time consuming. This tool solves this pipeline problem by Batch Automating the creation of Folders and the moving of Selected Assets. If Folder Name matches a pre-existing Folder name, assets will move into the pre-existing Folder.
 
 
 #### Built with:
@@ -42,30 +42,23 @@ ______
 </p>
 </details>
 <details open>
-<summary><h4>3. Add "Auto Asset Organizer" Tool into UE Project</h4></summary>
+<summary><h4>2. Add "EUW_autoAssetOrganizer_tool" Folder into UE Project</h4></summary>
 <br>
    
-   - Create
+   - Using File Explorer, Drag and Drop Tool Folder into Unreal Engine project > Content Folder
 <p align="center">
-<img src="https://github.com/BlakeXYZ/Unreal-Engine-Python-Projects/assets/37947050/1bdbf43e-3cf7-4dce-9fb5-c573a338d6eb" width="400">
+<img src="https://github.com/BlakeXYZ/Unreal-Engine-Tools/assets/37947050/11d75017-ebb5-4dd0-890e-f6ac435019d0" width="700">
 <br>
 </p>
 </details>
 <details open>
-<summary><h4>4. Add Additional PYTHONPATHS</h4></summary>
+<summary><h4>3. Run Tool inside Content Browser</h4></summary>
 <br>
    
-   - Edit > Project Settings > Python
-   - Add '_auto_material_instancer' folder as Additional Path
-   - Prompted to RESTART UE, please do so
+   - Right Click "EUW_assetOrganizer"
+   - Click "Run Editor Utility Widget"
 <p align="center">
-<img src="https://github.com/BlakeXYZ/Unreal-Engine-Python-Projects/assets/37947050/fb5a49d7-8d01-401b-b374-dde9c0c86146" width="700">
-</p>
-
-**Upon Restart, your Main Menu should now contain a new Item which launches the _auto_material_instancer tool!**
-
-<p align="center">
-<img src="https://github.com/BlakeXYZ/Unreal-Engine-Python-Projects/assets/37947050/c7d07bac-3a87-44b9-a9e1-884728bee34d" width="700">
+<img src="https://github.com/BlakeXYZ/Unreal-Engine-Tools/assets/37947050/bca60d2d-5e68-43d5-b756-66219792845f" width="700">
 </p>
 </details>
 
