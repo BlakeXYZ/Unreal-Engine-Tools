@@ -127,12 +127,30 @@ ______
 <summary><h4>Validation Errors</h4></summary>
 <br>
    
-On Initialization we are running two important steps:
-   
-- **sys.path.append(libs_subdir)**
-   - This sets up 3rd Party Python Library Dependencies (ex: PySide2, Unreal Stylesheet)
-- **def build_menu()**
-   - This builds an easy access Menu inside our LevelEditor.MainMenu, in which we can launch our Tool.
+- Snippets of Validation Errors being passed  
+
+<p align="center">
+<img src="https://github.com/BlakeXYZ/Unreal-Engine-Tools/assets/37947050/aa138057-c5c3-484a-a47e-8a22d768bb8a" width="700">
+</p>
+
+<p align="center">
+<img src="https://github.com/BlakeXYZ/Unreal-Engine-Tools/assets/37947050/7aa6d633-4a46-4803-8079-5059e72998c2" width="700">
+</p>
+
+
+<p align="center">
+<img src="https://github.com/BlakeXYZ/Unreal-Engine-Tools/assets/37947050/dc3128cf-7e2b-4984-af31-56e95fd048ac" width="700">
+</p>
+
+
+<p align="center">
+<img src="https://github.com/BlakeXYZ/Unreal-Engine-Tools/assets/37947050/54f1a076-a1d8-48f7-a48e-44998e1aa387" width="700">
+</p>
+
+
+
+
+
 </details>
 
 ______
