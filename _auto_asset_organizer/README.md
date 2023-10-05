@@ -45,7 +45,7 @@ ______
 <summary><h4>2. Add "EUW_autoAssetOrganizer_tool" Folder into UE Project</h4></summary>
 <br>
    
-   - Using File Explorer, drag and drop blueprint_version > **EUW_autoAssetOrganizer_tool** Folder into Unreal Engine project > Content Folder
+   - Using File Explorer, drag and drop 'blueprint_version' > '**EUW_autoAssetOrganizer_tool**' Folder into Unreal Engine project > Content Folder
 <p align="center">
 <img src="https://github.com/BlakeXYZ/Unreal-Engine-Tools/assets/37947050/11d75017-ebb5-4dd0-890e-f6ac435019d0" width="700">
 <br>
