@@ -4,7 +4,7 @@
 </p>
 
 ### Auto Material Instancer
-[Github Page](https://github.com/BlakeXYZ/Unreal-Engine-Python-Projects/blob/main/_auto_material_instancer/README.md) - Batch Automate creation of Material Instances based on User selected Master Material, Param Group, and Textures.
+[Github Page](https://github.com/BlakeXYZ/Unreal-Engine-Tools/tree/main/_auto_material_instancer#readme) - Batch Automate creation of Material Instances based on User selected Master Material, Param Group, and Textures.
 
 <details open>
 <summary>Preview</summary>
@@ -22,7 +22,7 @@
 </p>
 
 ### Auto Asset Organizer
-[Github Page](https://github.com/BlakeXYZ/Unreal-Engine-Tools/tree/main/_auto_asset_organizer) - Batch Automate moving of Assets into new Folders based on User selected Assets and User input Folder names.
+[Github Page](https://github.com/BlakeXYZ/Unreal-Engine-Tools/tree/main/_auto_asset_organizer#readme) - Batch Automate moving of Assets into new Folders based on User selected Assets and User input Folder names.
 <details open>
 <summary>Blueprint Version Preview</summary>
 <br>
